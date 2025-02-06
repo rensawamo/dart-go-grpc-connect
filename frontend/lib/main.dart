@@ -1,4 +1,5 @@
 import 'package:eliza/gen/eliza.pb.dart';
+import 'package:eliza/interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:connectrpc/http2.dart';
 import 'package:connectrpc/connect.dart';
@@ -14,6 +15,9 @@ final transport = grpc.Transport(
   codec: const ProtoCodec(), // Protobufを使用する場合
   httpClient: createHttpClient(),
   statusParser: const protobuf.StatusParser(), //gRPC をトランスポート プロトコルとして使用する場合
+  interceptors: [
+    interceptor,
+  ],
 );
 
 void main() {
