@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:connectrpc/http2.dart';
 import 'package:connectrpc/connect.dart';
 import 'package:connectrpc/protobuf.dart';
-import 'package:connectrpc/protocol/connect.dart' as protocol;
+import 'package:connectrpc/protobuf.dart' as protobuf;
+import 'package:connectrpc/protobuf.dart';
+import 'package:connectrpc/protocol/grpc.dart' as grpc;
 import './gen/eliza.connect.client.dart';
 
-final transport = protocol.Transport(
+final transport = grpc.Transport(
   baseUrl: "https://demo.connectrpc.com",
-  codec: const ProtoCodec(), // Or JsonCodec()
+  // Protobufの代わりに JSONを使用する場合 ▶️ codec: const JsonCodec()
+  codec: const ProtoCodec(), // Protobufを使用する場合
   httpClient: createHttpClient(),
+  statusParser: const protobuf.StatusParser(), //gRPC をトランスポート プロトコルとして使用する場合
 );
 
 void main() {
