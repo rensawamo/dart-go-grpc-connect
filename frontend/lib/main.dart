@@ -16,7 +16,7 @@ final transport = grpc.Transport(
   httpClient: createHttpClient(),
   statusParser: const protobuf.StatusParser(), //gRPC をトランスポート プロトコルとして使用する場合
   interceptors: [
-    interceptor,
+    const LoggingInterceptor(print),
   ],
 );
 
