@@ -1,34 +1,22 @@
 import 'package:eliza/gen/eliza.pb.dart';
-import 'package:eliza/interceptor.dart';
+import 'package:eliza/transport/grpc_transport.dart';
 import 'package:flutter/material.dart';
-import 'package:connectrpc/http2.dart';
 import 'package:connectrpc/connect.dart';
-import 'package:connectrpc/protobuf.dart';
-import 'package:connectrpc/protobuf.dart' as protobuf;
-import 'package:connectrpc/protobuf.dart';
-import 'package:connectrpc/protocol/grpc.dart' as grpc;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import './gen/eliza.connect.client.dart';
 
-final transport = grpc.Transport(
-  baseUrl: "https://demo.connectrpc.com",
-  // Protobufの代わりに JSONを使用する場合 ▶️ codec: const JsonCodec()
-  codec: const ProtoCodec(), // Protobufを使用する場合
-  httpClient: createHttpClient(),
-  statusParser: const protobuf.StatusParser(), //gRPC をトランスポート プロトコルとして使用する場合
-  interceptors: [
-    const LoggingInterceptor(print),
-  ],
-);
-
 void main() {
-  runApp(const ElizaApp());
+  runApp(const ProviderScope(child: ElizaApp()));
 }
 
-class ElizaApp extends StatelessWidget {
+class ElizaApp extends ConsumerWidget {
   const ElizaApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // ビルドモードで切り替える
+    final transport = ref.read(grpcTransportProvider);
+
     return MaterialApp(
       title: 'Eliza',
       theme: ThemeData(
