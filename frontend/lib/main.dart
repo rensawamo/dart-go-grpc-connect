@@ -46,7 +46,9 @@ class _ChatPageState extends State<ChatPage> {
 
   void send(String sentence) async {
     addMessage(sentence, true);
-    final response = await ElizaServiceClient(widget.transport).say(
+    final response = await ElizaServiceClient(
+      widget.transport,
+    ).say(
       SayRequest(sentence: sentence),
     );
     addMessage(response.sentence, false);

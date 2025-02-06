@@ -8,6 +8,7 @@ class LoggingInterceptor {
   AnyFn<I, O> call<I extends Object, O extends Object>(AnyFn<I, O> next) {
     return (req) async {
       final res = await next(req);
+      print(req.headers['x-client']); // eliza
       switch (res) {
         case StreamResponse<I, O>():
           return StreamResponse(
@@ -28,5 +29,17 @@ class LoggingInterceptor {
       log(next);
       yield next;
     }
+  }
+}
+
+class MetadataInterceptor {
+  const MetadataInterceptor();
+
+  AnyFn<I, O> call<I extends Object, O extends Object>(AnyFn<I, O> next) {
+    return (req) async {
+      final headers = req.headers;
+      headers.add('x-client', 'eliza');
+      return next(req);
+    };
   }
 }

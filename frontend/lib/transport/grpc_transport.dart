@@ -34,12 +34,13 @@ Transport grpcTransport(Ref ref) {
     statusParser: const protobuf.StatusParser(), //gRPC をトランスポート プロトコルとして使用する場合
     interceptors: [
       const LoggingInterceptor(print),
+      const MetadataInterceptor(),
     ],
   );
 
-  if (kDebugMode) {
-    return fakeTransport;
-  } else {
+ 
+ 
+  
     return transport;
-  }
+  
 }
