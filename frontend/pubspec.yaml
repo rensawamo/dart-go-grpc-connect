@@ -40,6 +40,7 @@ dependencies:
   build_runner: ^2.4.14
   json_serializable: ^6.9.3
   riverpod_generator: ^2.6.4
+  pedantic_mono: ^1.29.0
 
 dev_dependencies:
   flutter_test:

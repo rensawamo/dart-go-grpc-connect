@@ -448,6 +448,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
+  pedantic_mono:
+    dependency: "direct main"
+    description:
+      name: pedantic_mono
+      sha256: "23b8ce74610b7397363c314cd0dc0f21d175f44f4429b3b2bcc9305c3549bb19"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.29.0"
   pool:
     dependency: transitive
     description:
