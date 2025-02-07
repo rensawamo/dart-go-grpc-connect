@@ -1,7 +1,7 @@
 import 'package:connectrpc/connect.dart';
 
 class LoggingInterceptor {
-  final Function(Object? any) log;
+  final void Function(Object? any) log;
 
   const LoggingInterceptor(this.log);
 

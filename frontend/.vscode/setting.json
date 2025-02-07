@@ -1,0 +1,41 @@
+{
+    "[dart]": {
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "recentlyUsedByPrefix",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off",
+        "editor.codeActionsOnSave": {
+            "quickfix.insertSemicolon": "always",
+            "source.organizeImports": "always",
+            "source.addMissingImports": "always",
+            "source.fixAll": "always"
+        }
+    },
+    "dart.flutterGenerateLocalizationsOnSave": "all",
+    "dart.flutterSdkPath": ".fvm/versions/3.24.4",
+    "dart.debugExternalPackageLibraries": false,
+    "dart.debugSdkLibraries": false,
+    "dart.experimentalRefactors": true,
+    "dart.showSkippedTests": false,
+    "dart.runPubGetOnPubspecChanges": "always",
+    "dart.renameFilesWithClasses": "always",
+    "debug.openDebug": "openOnDebugBreak",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "editor.rulers": [
+        80
+    ],
+    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": true,
+    "editor.minimap.enabled": false,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "makefile.configureOnOpen": false
+}

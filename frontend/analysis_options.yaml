@@ -1,1 +1,17 @@
 include: package:pedantic_mono/analysis_options.yaml
+
+analyzer:
+  errors:
+    invalid_annotation_target: ignore
+    sort_pub_dependencies: ignore
+  exclude:
+    - "**/firebase_options_*.dart"
+    - "**/*.freezed.dart"
+    - "**/*.g.dart"
+    - "**/*.mocks.dart"
+    - "**/color/**"
+    - "**/gen/**"
+    - "**/cmd/**"
+
+linter:
+  rules:
