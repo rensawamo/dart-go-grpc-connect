@@ -38,9 +38,9 @@ Transport grpcTransport(Ref ref) {
     ],
   );
 
- 
- 
-  
+  if (kDebugMode) {
+    return fakeTransport;
+  } else {
     return transport;
-  
+  }
 }
