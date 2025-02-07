@@ -1,0 +1,30 @@
+output   = "gen/models"
+wipe     = true
+no-tests = true
+add-enum-types = true
+
+[mysql]
+  dbname  = "db"
+  host    = "localhost"
+  port    = 3306
+  user    = "dbuser"
+  pass    = "dbpass"
+  sslmode = "skip-verify"
+  blacklist = ["migrations"]
+
+[[types]]
+  [types.match]
+    tables = ['resources']
+    name = "id"
+  [types.replace]
+    type = "ulid.ULID"
+  [types.imports]
+    third_party = ['"github.com/oklog/ulid/v2"']
+
+[[types]]
+  [types.match]
+    name = "resource_id"
+  [types.replace]
+    type = "ulid.ULID"
+  [types.imports]
+    third_party = ['"github.com/oklog/ulid/v2"']

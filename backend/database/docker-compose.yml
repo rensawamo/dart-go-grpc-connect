@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0.28
+    ports:
+      - ${MYSQL_PORT:-3306}:3306
+    user: "${UID_GID:-1000:1000}"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/log:/var/log
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-mysql}
+      - MYSQL_USER=${MYSQL_USER:-dbuser}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-dbpass}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-db}
+    command:
+      - --log_output=FILE
+      - --log-raw=ON
+      - --general_log=ON
+      - --general_log_file=/var/log/mysql-general.log
+      - --slow-query-log=ON
+      - --slow-query-log-file=/var/log/mysql-slow-query.log
+    restart: always
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+    name: backend_network
