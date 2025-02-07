@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	backend "github.com/rensawamo/dart-go-grpc-connect/backend"
+	gen "github.com/rensawamo/dart-go-grpc-connect/backend/gen"
 	http "net/http"
 	strings "strings"
 )
@@ -39,13 +39,13 @@ const (
 
 // These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
 var (
-	elizaServiceServiceDescriptor   = backend.File_eliza_proto.Services().ByName("ElizaService")
+	elizaServiceServiceDescriptor   = gen.File_eliza_proto.Services().ByName("ElizaService")
 	elizaServiceSayMethodDescriptor = elizaServiceServiceDescriptor.Methods().ByName("Say")
 )
 
 // ElizaServiceClient is a client for the connectrpc.eliza.v1.ElizaService service.
 type ElizaServiceClient interface {
-	Say(context.Context, *connect.Request[backend.SayRequest]) (*connect.Response[backend.SayResponse], error)
+	Say(context.Context, *connect.Request[gen.SayRequest]) (*connect.Response[gen.SayResponse], error)
 }
 
 // NewElizaServiceClient constructs a client for the connectrpc.eliza.v1.ElizaService service. By
@@ -58,7 +58,7 @@ type ElizaServiceClient interface {
 func NewElizaServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) ElizaServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &elizaServiceClient{
-		say: connect.NewClient[backend.SayRequest, backend.SayResponse](
+		say: connect.NewClient[gen.SayRequest, gen.SayResponse](
 			httpClient,
 			baseURL+ElizaServiceSayProcedure,
 			connect.WithSchema(elizaServiceSayMethodDescriptor),
@@ -69,17 +69,17 @@ func NewElizaServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 
 // elizaServiceClient implements ElizaServiceClient.
 type elizaServiceClient struct {
-	say *connect.Client[backend.SayRequest, backend.SayResponse]
+	say *connect.Client[gen.SayRequest, gen.SayResponse]
 }
 
 // Say calls connectrpc.eliza.v1.ElizaService.Say.
-func (c *elizaServiceClient) Say(ctx context.Context, req *connect.Request[backend.SayRequest]) (*connect.Response[backend.SayResponse], error) {
+func (c *elizaServiceClient) Say(ctx context.Context, req *connect.Request[gen.SayRequest]) (*connect.Response[gen.SayResponse], error) {
 	return c.say.CallUnary(ctx, req)
 }
 
 // ElizaServiceHandler is an implementation of the connectrpc.eliza.v1.ElizaService service.
 type ElizaServiceHandler interface {
-	Say(context.Context, *connect.Request[backend.SayRequest]) (*connect.Response[backend.SayResponse], error)
+	Say(context.Context, *connect.Request[gen.SayRequest]) (*connect.Response[gen.SayResponse], error)
 }
 
 // NewElizaServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -107,6 +107,6 @@ func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect.HandlerOpti
 // UnimplementedElizaServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedElizaServiceHandler struct{}
 
-func (UnimplementedElizaServiceHandler) Say(context.Context, *connect.Request[backend.SayRequest]) (*connect.Response[backend.SayResponse], error) {
+func (UnimplementedElizaServiceHandler) Say(context.Context, *connect.Request[gen.SayRequest]) (*connect.Response[gen.SayResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("connectrpc.eliza.v1.ElizaService.Say is not implemented"))
 }
