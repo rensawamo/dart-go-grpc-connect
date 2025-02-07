@@ -2,6 +2,7 @@ version: '3'
 
 services:
   db:
+    platform: linux/x86_64 # MAC Book 
     image: mysql:8.0.28
     ports:
       - ${MYSQL_PORT:-3306}:3306

@@ -1,0 +1,6 @@
+development:
+  dialect: mysql
+  datasource: ${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST})/${MYSQL_DATABASE}?parseTime=true&multiStatements=true
+  dir: database/migrations
+  
+  
