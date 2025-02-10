@@ -1,5 +1,9 @@
 SQL_MIGRATE_CLI		= sql-migrate
 
+.PHONY: run
+run:
+	go run cmd/main.go
+
 .PHONY: gen
 gen:
 	buf generate -v --debug --include-imports --include-wkt \

@@ -1,13 +1,14 @@
 -- +migrate Up
 create table sentences (
-    id serial primary key,  
+    id BINARY(16) primary key,
     sentence text not null
 );
 
-insert into sentences (sentence) values ('Hi');
-insert into sentences (sentence) values ('Hola');
-insert into sentences (sentence) values ('アンニョン');
-insert into sentences (sentence) values ('Bonjour');
+insert into sentences (id,sentence) values (1,'Hi');
+insert into sentences (id,sentence) values (2,'Hola');
+insert into sentences (id,sentence) values (3,'アンニョン');
+insert into sentences (id,sentence) values (4,'Bonjour');
 
 -- +migrate Down
+delete from sentences;
 DROP TABLE IF EXISTS sentences;
