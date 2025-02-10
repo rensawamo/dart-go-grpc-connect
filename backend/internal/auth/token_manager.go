@@ -11,12 +11,6 @@ import (
 	"github.com/lestrrat-go/jwx/v2/jwt"
 )
 
-// JWTの操作
-type ITokenManager interface {
-	CreateToken(userID []byte, duration time.Duration) (string, error)
-	GetUserID(token string) ([]byte, error)
-}
-
 type TokenManager struct {
 	// 署名アルゴリズム
 	signAlg jwa.SignatureAlgorithm
@@ -63,8 +57,8 @@ func NewTokenManager(issuer string, keyPath string) (*TokenManager, error) {
 	}, nil
 }
 
-// トークンの作成
-func (m *TokenManager) CreateToken(userID []byte, duration time.Duration) (string, error) {
+// アクセストークンの作成
+func (m *TokenManager) CreateAccessToken(userID []byte, duration time.Duration) (string, error) {
 	if len(userID) == 0 {
 		return "", errors.New("error: invalid token parameter")
 	}

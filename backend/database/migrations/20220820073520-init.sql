@@ -4,13 +4,14 @@ create table sentences (
     sentence text not null
 );
 
-create table users(
-    id VARCHAR(50) PRIMARY KEY,
+CREATE TABLE users (
+    id BINARY(16) primary key,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 
 -- バイナリ型のIDをUUIDを使って挿入
 insert into sentences (id, sentence) values (UUID_TO_BIN(UUID()), 'Hi');
