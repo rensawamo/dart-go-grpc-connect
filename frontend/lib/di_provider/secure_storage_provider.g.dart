@@ -1,27 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'grpc_transport.dart';
+part of 'secure_storage_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$grpcTransportHash() => r'85f8213c15e54cfd66801faf1700f7d0ffd1040e';
+String _$secureStorageHash() => r'273dc403a965c1f24962aaf4d40776611a26f8b8';
 
-/// See also [grpcTransport].
-@ProviderFor(grpcTransport)
-final grpcTransportProvider = AutoDisposeProvider<Transport>.internal(
-  grpcTransport,
-  name: r'grpcTransportProvider',
+/// See also [secureStorage].
+@ProviderFor(secureStorage)
+final secureStorageProvider =
+    AutoDisposeProvider<FlutterSecureStorage>.internal(
+  secureStorage,
+  name: r'secureStorageProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$grpcTransportHash,
+      : _$secureStorageHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef GrpcTransportRef = AutoDisposeProviderRef<Transport>;
+typedef SecureStorageRef = AutoDisposeProviderRef<FlutterSecureStorage>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
