@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: eliza.proto
+//  source: auth/v1/auth.proto
 //
 // @dart = 2.12
 

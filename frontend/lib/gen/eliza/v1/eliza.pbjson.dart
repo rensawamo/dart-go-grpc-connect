@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: eliza.proto
+//  source: eliza/v1/eliza.proto
 //
 // @dart = 2.12
 
@@ -40,18 +40,18 @@ final $typed_data.Uint8List sayResponseDescriptor = $convert.base64Decode(
 const $core.Map<$core.String, $core.dynamic> ElizaServiceBase$json = {
   '1': 'ElizaService',
   '2': [
-    {'1': 'Say', '2': '.connectrpc.eliza.v1.SayRequest', '3': '.connectrpc.eliza.v1.SayResponse', '4': {}},
+    {'1': 'Say', '2': '.eliza.v1.SayRequest', '3': '.eliza.v1.SayResponse', '4': {}},
   ],
 };
 
 @$core.Deprecated('Use elizaServiceDescriptor instead')
 const $core.Map<$core.String, $core.Map<$core.String, $core.dynamic>> ElizaServiceBase$messageJson = {
-  '.connectrpc.eliza.v1.SayRequest': SayRequest$json,
-  '.connectrpc.eliza.v1.SayResponse': SayResponse$json,
+  '.eliza.v1.SayRequest': SayRequest$json,
+  '.eliza.v1.SayResponse': SayResponse$json,
 };
 
 /// Descriptor for `ElizaService`. Decode as a `google.protobuf.ServiceDescriptorProto`.
 final $typed_data.Uint8List elizaServiceDescriptor = $convert.base64Decode(
-    'CgxFbGl6YVNlcnZpY2USSgoDU2F5Eh8uY29ubmVjdHJwYy5lbGl6YS52MS5TYXlSZXF1ZXN0Gi'
-    'AuY29ubmVjdHJwYy5lbGl6YS52MS5TYXlSZXNwb25zZSIA');
+    'CgxFbGl6YVNlcnZpY2USNAoDU2F5EhQuZWxpemEudjEuU2F5UmVxdWVzdBoVLmVsaXphLnYxLl'
+    'NheVJlc3BvbnNlIgA=');
 

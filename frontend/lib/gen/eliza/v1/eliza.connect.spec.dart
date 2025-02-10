@@ -1,19 +1,19 @@
 //
 //  Generated code. Do not modify.
-//  source: eliza.proto
+//  source: eliza/v1/eliza.proto
 //
 
 import "package:connectrpc/connect.dart" as connect;
-import "eliza.pb.dart" as eliza;
+import "eliza.pb.dart" as elizav1eliza;
 
 abstract final class ElizaService {
   /// Fully-qualified name of the ElizaService service.
-  static const name = 'connectrpc.eliza.v1.ElizaService';
+  static const name = 'eliza.v1.ElizaService';
 
   static const say = connect.Spec(
     '/$name/Say',
     connect.StreamType.unary,
-    eliza.SayRequest.new,
-    eliza.SayResponse.new,
+    elizav1eliza.SayRequest.new,
+    elizav1eliza.SayResponse.new,
   );
 }

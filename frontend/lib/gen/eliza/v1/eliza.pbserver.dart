@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: eliza.proto
+//  source: eliza/v1/eliza.proto
 //
 // @dart = 2.12
 
@@ -15,24 +15,24 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'eliza.pb.dart' as $0;
+import 'eliza.pb.dart' as $1;
 import 'eliza.pbjson.dart';
 
 export 'eliza.pb.dart';
 
 abstract class ElizaServiceBase extends $pb.GeneratedService {
-  $async.Future<$0.SayResponse> say($pb.ServerContext ctx, $0.SayRequest request);
+  $async.Future<$1.SayResponse> say($pb.ServerContext ctx, $1.SayRequest request);
 
   $pb.GeneratedMessage createRequest($core.String methodName) {
     switch (methodName) {
-      case 'Say': return $0.SayRequest();
+      case 'Say': return $1.SayRequest();
       default: throw $core.ArgumentError('Unknown method: $methodName');
     }
   }
 
   $async.Future<$pb.GeneratedMessage> handleCall($pb.ServerContext ctx, $core.String methodName, $pb.GeneratedMessage request) {
     switch (methodName) {
-      case 'Say': return this.say(ctx, request as $0.SayRequest);
+      case 'Say': return this.say(ctx, request as $1.SayRequest);
       default: throw $core.ArgumentError('Unknown method: $methodName');
     }
   }

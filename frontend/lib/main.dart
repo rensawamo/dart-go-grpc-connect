@@ -1,9 +1,9 @@
-import 'package:eliza/gen/eliza.pb.dart';
+import 'package:eliza/gen/eliza/v1/eliza.connect.client.dart';
+import 'package:eliza/gen/eliza/v1/eliza.pb.dart';
 import 'package:eliza/transport/grpc_transport.dart';
 import 'package:flutter/material.dart';
 import 'package:connectrpc/connect.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import './gen/eliza.connect.client.dart';
 
 void main() {
   runApp(const ProviderScope(child: ElizaApp()));

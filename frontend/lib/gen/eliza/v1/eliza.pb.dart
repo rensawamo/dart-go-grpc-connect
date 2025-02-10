@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: eliza.proto
+//  source: eliza/v1/eliza.proto
 //
 // @dart = 2.12
 
@@ -28,7 +28,7 @@ class SayRequest extends $pb.GeneratedMessage {
   factory SayRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SayRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SayRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'connectrpc.eliza.v1'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SayRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'eliza.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'sentence')
     ..hasRequiredFields = false
   ;
@@ -78,7 +78,7 @@ class SayResponse extends $pb.GeneratedMessage {
   factory SayResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SayResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SayResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'connectrpc.eliza.v1'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SayResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'eliza.v1'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'sentence')
     ..hasRequiredFields = false
   ;
