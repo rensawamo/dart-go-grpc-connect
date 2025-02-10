@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package connectrpc.eliza.v1;
+package eliza.v1;
 
 message SayRequest {
   string sentence = 1;
