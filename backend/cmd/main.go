@@ -8,9 +8,12 @@ import (
 	"os"
 	"time"
 
+	"connectrpc.com/connect"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/rensawamo/dart-go-grpc-connect/backend/api/interceptor"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/di"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/gen/auth/v1/authv1connect"
+	"github.com/rensawamo/dart-go-grpc-connect/backend/gen/eliza/v1/elizav1connect"
 
 	"github.com/rs/cors"
 	"golang.org/x/net/http2"
@@ -36,14 +39,18 @@ func main() {
 	keyPath := getEnvOrPanic("PRIVATE_KEY_PATH")
 
 	// インターセプタの設定
-	// authInterceptor := connect.WithInterceptors(interceptor.NewAuthInterceptor(issuer, keyPath))
+	authInterceptor := connect.WithInterceptors(interceptor.NewAuthInterceptor(issuer, keyPath))
 	timeout := 1 * time.Hour
 	mux := http.NewServeMux()
 
+	// DI
 	loginHandler, err := di.InitLoginHandler(db, issuer, keyPath, timeout)
+	elizaHandler := di.InitElizaHandler(db)
+
 	dieIf(err)
 
 	mux.Handle(authv1connect.NewAuthServiceHandler(loginHandler))
+	mux.Handle(elizav1connect.NewElizaServiceHandler(elizaHandler, authInterceptor))
 
 	address := "localhost:8080"
 	fmt.Printf("Starting server at %s\n", address)

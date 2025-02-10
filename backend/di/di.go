@@ -15,9 +15,14 @@ func InitLoginHandler(db *sql.DB, issuer string, keyPath string, timeout time.Du
 	if err != nil {
 		return nil, err
 	}
-
 	userRepo := repository.NewUserRepository(db)
 	loginUsecase := usecase.NewLoginUsecase(userRepo, time.Minute*5, tokenManager)
 
 	return handler.NewLoginHandler(loginUsecase, int(timeout)), nil
+}
+
+func InitElizaHandler(db *sql.DB) *handler.ElizaHandler {
+	elizaRepo := repository.NewElizaRepository(db)
+	elizaUsecase := usecase.NewElizaUsecase(elizaRepo)
+	return handler.NewElizaHandler(elizaUsecase)
 }

@@ -13,11 +13,11 @@ CREATE TABLE users (
 );
 
 
--- バイナリ型のIDをUUIDを使って挿入
 insert into sentences (id, sentence) values (UUID_TO_BIN(UUID()), 'Hi');
 insert into sentences (id, sentence) values (UUID_TO_BIN(UUID()), 'Hola');
 insert into sentences (id, sentence) values (UUID_TO_BIN(UUID()), 'アンニョン');
 insert into sentences (id, sentence) values (UUID_TO_BIN(UUID()), 'Bonjour');
+insert into users (id, email, password) values (UUID_TO_BIN(UUID()), 'test@google.com', 'example');
 
 -- +migrate Down
 delete from sentences;
