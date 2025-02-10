@@ -6,7 +6,7 @@ part of 'secure_storage_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$secureStorageHash() => r'273dc403a965c1f24962aaf4d40776611a26f8b8';
+String _$secureStorageHash() => r'5f0f1e7075cbfc89c9f88bceffd63f21bf812b87';
 
 /// See also [secureStorage].
 @ProviderFor(secureStorage)

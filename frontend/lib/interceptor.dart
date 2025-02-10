@@ -1,9 +1,8 @@
 import 'package:connectrpc/connect.dart';
 
 class LoggingInterceptor {
-  final void Function(Object? any) log;
-
   const LoggingInterceptor(this.log);
+  final void Function(Object? any) log;
 
   AnyFn<I, O> call<I extends Object, O extends Object>(AnyFn<I, O> next) {
     return (req) async {
@@ -17,7 +16,7 @@ class LoggingInterceptor {
             _logEach(res.message),
             res.trailers,
           );
-        case UnaryResponse<I, O>(message: var message):
+        case UnaryResponse<I, O>(message: final message):
           log(message);
           return res;
       }
