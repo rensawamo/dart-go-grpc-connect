@@ -23,7 +23,7 @@ import (
 
 // Sentence is an object representing the database table.
 type Sentence struct {
-	ID       uint64 `boil:"id" json:"id" toml:"id" yaml:"id"`
+	ID       []byte `boil:"id" json:"id" toml:"id" yaml:"id"`
 	Sentence string `boil:"sentence" json:"sentence" toml:"sentence" yaml:"sentence"`
 
 	R *sentenceR `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -48,34 +48,20 @@ var SentenceTableColumns = struct {
 
 // Generated where
 
-type whereHelperuint64 struct{ field string }
+type whereHelper__byte struct{ field string }
 
-func (w whereHelperuint64) EQ(x uint64) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.EQ, x) }
-func (w whereHelperuint64) NEQ(x uint64) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.NEQ, x) }
-func (w whereHelperuint64) LT(x uint64) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.LT, x) }
-func (w whereHelperuint64) LTE(x uint64) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.LTE, x) }
-func (w whereHelperuint64) GT(x uint64) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.GT, x) }
-func (w whereHelperuint64) GTE(x uint64) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.GTE, x) }
-func (w whereHelperuint64) IN(slice []uint64) qm.QueryMod {
-	values := make([]interface{}, 0, len(slice))
-	for _, value := range slice {
-		values = append(values, value)
-	}
-	return qm.WhereIn(fmt.Sprintf("%s IN ?", w.field), values...)
-}
-func (w whereHelperuint64) NIN(slice []uint64) qm.QueryMod {
-	values := make([]interface{}, 0, len(slice))
-	for _, value := range slice {
-		values = append(values, value)
-	}
-	return qm.WhereNotIn(fmt.Sprintf("%s NOT IN ?", w.field), values...)
-}
+func (w whereHelper__byte) EQ(x []byte) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.EQ, x) }
+func (w whereHelper__byte) NEQ(x []byte) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.NEQ, x) }
+func (w whereHelper__byte) LT(x []byte) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.LT, x) }
+func (w whereHelper__byte) LTE(x []byte) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.LTE, x) }
+func (w whereHelper__byte) GT(x []byte) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.GT, x) }
+func (w whereHelper__byte) GTE(x []byte) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.GTE, x) }
 
 var SentenceWhere = struct {
-	ID       whereHelperuint64
+	ID       whereHelper__byte
 	Sentence whereHelperstring
 }{
-	ID:       whereHelperuint64{field: "`sentences`.`id`"},
+	ID:       whereHelper__byte{field: "`sentences`.`id`"},
 	Sentence: whereHelperstring{field: "`sentences`.`sentence`"},
 }
 
@@ -97,8 +83,8 @@ type sentenceL struct{}
 
 var (
 	sentenceAllColumns            = []string{"id", "sentence"}
-	sentenceColumnsWithoutDefault = []string{"sentence"}
-	sentenceColumnsWithDefault    = []string{"id"}
+	sentenceColumnsWithoutDefault = []string{"id", "sentence"}
+	sentenceColumnsWithDefault    = []string{}
 	sentencePrimaryKeyColumns     = []string{"id"}
 	sentenceGeneratedColumns      = []string{}
 )
@@ -421,7 +407,7 @@ func Sentences(mods ...qm.QueryMod) sentenceQuery {
 
 // FindSentence retrieves a single record by ID with an executor.
 // If selectCols is empty Find will return all columns.
-func FindSentence(ctx context.Context, exec boil.ContextExecutor, iD uint64, selectCols ...string) (*Sentence, error) {
+func FindSentence(ctx context.Context, exec boil.ContextExecutor, iD []byte, selectCols ...string) (*Sentence, error) {
 	sentenceObj := &Sentence{}
 
 	sel := "*"
@@ -508,26 +494,15 @@ func (o *Sentence) Insert(ctx context.Context, exec boil.ContextExecutor, column
 		fmt.Fprintln(writer, cache.query)
 		fmt.Fprintln(writer, vals)
 	}
-	result, err := exec.ExecContext(ctx, cache.query, vals...)
+	_, err = exec.ExecContext(ctx, cache.query, vals...)
 
 	if err != nil {
 		return errors.Wrap(err, "models: unable to insert into sentences")
 	}
 
-	var lastID int64
 	var identifierCols []interface{}
 
 	if len(cache.retMapping) == 0 {
-		goto CacheNoHooks
-	}
-
-	lastID, err = result.LastInsertId()
-	if err != nil {
-		return ErrSyncFail
-	}
-
-	o.ID = uint64(lastID)
-	if lastID != 0 && len(cache.retMapping) == 1 && cache.retMapping[0] == sentenceMapping["id"] {
 		goto CacheNoHooks
 	}
 
@@ -783,27 +758,16 @@ func (o *Sentence) Upsert(ctx context.Context, exec boil.ContextExecutor, update
 		fmt.Fprintln(writer, cache.query)
 		fmt.Fprintln(writer, vals)
 	}
-	result, err := exec.ExecContext(ctx, cache.query, vals...)
+	_, err = exec.ExecContext(ctx, cache.query, vals...)
 
 	if err != nil {
 		return errors.Wrap(err, "models: unable to upsert for sentences")
 	}
 
-	var lastID int64
 	var uniqueMap []uint64
 	var nzUniqueCols []interface{}
 
 	if len(cache.retMapping) == 0 {
-		goto CacheNoHooks
-	}
-
-	lastID, err = result.LastInsertId()
-	if err != nil {
-		return ErrSyncFail
-	}
-
-	o.ID = uint64(lastID)
-	if lastID != 0 && len(cache.retMapping) == 1 && cache.retMapping[0] == sentenceMapping["id"] {
 		goto CacheNoHooks
 	}
 
@@ -981,7 +945,7 @@ func (o *SentenceSlice) ReloadAll(ctx context.Context, exec boil.ContextExecutor
 }
 
 // SentenceExists checks if the Sentence row exists.
-func SentenceExists(ctx context.Context, exec boil.ContextExecutor, iD uint64) (bool, error) {
+func SentenceExists(ctx context.Context, exec boil.ContextExecutor, iD []byte) (bool, error) {
 	var exists bool
 	sql := "select exists(select 1 from `sentences` where `id`=? limit 1)"
 
