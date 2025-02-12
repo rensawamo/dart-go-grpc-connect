@@ -17,6 +17,7 @@ class LoginPage extends ConsumerStatefulWidget {
 class LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  String error = '';
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<String?> _call() async {
@@ -25,15 +26,33 @@ class LoginPageState extends ConsumerState<LoginPage> {
 
     try {
       final response = await AuthServiceClient(
-        ref.read(grpcTransportProvider),
+        ref.read(grpcTransportProvider(isRequireMetaData: false)),
       ).login(
         LoginRequest(email: email, password: password),
       );
       return response.token;
     } on ConnectException catch (e) {
-      print('エラーが発生しました: $e');
+      setState(() {
+        error = e.message;
+      });
     }
     return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(tokenNotifierProvider.notifier).initState();
+    // migrationでこのuserをDBに登録してます。
+    emailController.text = 'test@google.com';
+    passwordController.text = 'example';
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   Future<void> login() async {
@@ -42,14 +61,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
       await ref.read(tokenNotifierProvider.notifier).saveAccessToken(token);
       if (mounted) {
         await const ElizaRouteData().push<void>(context);
-      }
-    } else {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('ログインに失敗しました'),
-          ),
-        );
       }
     }
   }
@@ -67,6 +78,13 @@ class LoginPageState extends ConsumerState<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              if (error.isNotEmpty) ...[
+                Text(
+                  error,
+                  style: const TextStyle(color: Colors.red),
+                ),
+                const SizedBox(height: 16),
+              ],
               // Emailフィールド
               TextFormField(
                 controller: emailController,

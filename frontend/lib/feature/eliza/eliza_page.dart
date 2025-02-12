@@ -10,10 +10,10 @@ class ChatPage extends ConsumerStatefulWidget {
   });
 
   @override
-  _ChatPageState createState() => _ChatPageState();
+  ChatPageState createState() => ChatPageState();
 }
 
-class _ChatPageState extends ConsumerState<ChatPage> {
+class ChatPageState extends ConsumerState<ChatPage> {
   final messages = List<({String sentence, bool byUser})>.empty(growable: true);
   final currentSentence = TextEditingController();
 
@@ -24,7 +24,7 @@ class _ChatPageState extends ConsumerState<ChatPage> {
   Future<void> send(String sentence) async {
     addMessage(sentence, true);
     final response = await ElizaServiceClient(
-      ref.read(grpcTransportProvider),
+      ref.read(grpcTransportProvider()),
     ).say(
       SayRequest(sentence: sentence),
     );
