@@ -42,7 +42,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(tokenNotifierProvider.notifier).initState();
     // migrationでこのuserをDBに登録してます。
     emailController.text = 'test@google.com';
     passwordController.text = 'example';

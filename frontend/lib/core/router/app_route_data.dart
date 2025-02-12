@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:frontend/feature/eliza/eliza_page.dart';
-import 'package:frontend/feature/login/login_page.dart';
 import 'package:frontend/core/router/app_navigation_bar.dart';
 import 'package:frontend/core/router/routes.dart';
+import 'package:frontend/feature/eliza/eliza_page.dart';
+import 'package:frontend/feature/login/login_page.dart';
 import 'package:go_router/go_router.dart';
 
 part 'app_route_data.g.dart';

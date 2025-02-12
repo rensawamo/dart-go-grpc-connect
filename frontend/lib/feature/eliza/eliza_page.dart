@@ -17,18 +17,18 @@ class ChatPageState extends ConsumerState<ChatPage> {
   final messages = List<({String sentence, bool byUser})>.empty(growable: true);
   final currentSentence = TextEditingController();
 
-  void addMessage(String sentence, bool byUser) {
+  void addMessage(String sentence, {required bool byUser}) {
     setState(() => messages.add((sentence: sentence, byUser: byUser)));
   }
 
-  Future<void> send(String sentence) async {
-    addMessage(sentence, true);
+  Future<void> call(String sentence) async {
+    addMessage(sentence, byUser: true);
     final response = await ElizaServiceClient(
       ref.read(grpcTransportProvider()),
     ).say(
       SayRequest(sentence: sentence),
     );
-    addMessage(response.sentence, false);
+    addMessage(response.sentence, byUser: false);
   }
 
   @override
@@ -114,7 +114,7 @@ class ChatPageState extends ConsumerState<ChatPage> {
                       if (sentence.isEmpty) {
                         return;
                       }
-                      send(sentence);
+                      call(sentence);
                       currentSentence.clear();
                     },
                     child: const Text(
