@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"math/rand"
-	"time"
 
 	"github.com/google/uuid"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/domain"
@@ -53,7 +52,6 @@ func (er *elizaRepository) FetchSentence(c context.Context) (domain.Eliza, error
 	if len(modelSentences) == 0 {
 		return domain.Eliza{}, nil
 	}
-	rand.Seed(time.Now().UnixNano())
 	randomIndex := rand.Intn(len(modelSentences))
 	selectedSentence := modelSentences[randomIndex]
 

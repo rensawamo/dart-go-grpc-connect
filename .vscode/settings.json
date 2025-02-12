@@ -8,13 +8,13 @@
     }
   },
   "cSpell.ignorePaths": [
+    "**/.gen/**",
     "dart_defines",
     "firebase_options*.dart",
     "google-services.json",
     "node_modules",
     "package-lock.json",
     "vscode-extension",
-    "*.gen.dart",
     "*.lock",
     "*.xcconfig",
     "**/fvm",
@@ -28,7 +28,8 @@
     "**/pkg",
     "go.sum",
     "*.pb.go",
-    "*.gen.go"
+    "*.gen.go",
+    ".envrc"
   ],
   "cSpell.spellCheckOnlyWorkspaceFiles": true,
   "go.lintOnSave": "workspace",

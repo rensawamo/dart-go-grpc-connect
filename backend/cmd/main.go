@@ -21,7 +21,7 @@ import (
 )
 
 func main() {
-	boil.DebugMode = true
+	boil.DebugMode = false
 	dsn := getEnvOrPanic("DSN")
 	db, err := sql.Open("mysql", dsn)
 	dieIf(err)

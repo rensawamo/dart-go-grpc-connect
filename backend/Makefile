@@ -1,5 +1,5 @@
 SQL_MIGRATE_CLI		= sql-migrate
-
+ 
 .PHONY: run
 run:
 	go run cmd/main.go

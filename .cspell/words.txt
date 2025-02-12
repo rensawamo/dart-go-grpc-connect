@@ -1,1 +1,8 @@
+connectrpc
 usecase
+sqlboiler
+volatiletech
+contextkey
+eliza
+bson
+lestrrat
