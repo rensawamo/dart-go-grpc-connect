@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/gen/eliza/v1/eliza.connect.client.dart';
 import 'package:frontend/gen/eliza/v1/eliza.pb.dart';
 import 'package:frontend/transport/grpc_transport.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChatPage extends ConsumerStatefulWidget {
   const ChatPage({
@@ -22,7 +21,7 @@ class _ChatPageState extends ConsumerState<ChatPage> {
     setState(() => messages.add((sentence: sentence, byUser: byUser)));
   }
 
-  void send(String sentence) async {
+  Future<void> send(String sentence) async {
     addMessage(sentence, true);
     final response = await ElizaServiceClient(
       ref.read(grpcTransportProvider),
@@ -37,7 +36,7 @@ class _ChatPageState extends ConsumerState<ChatPage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -53,12 +52,12 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                               children: [
                                 Spacer(),
                                 Text(
-                                  "You",
+                                  'You',
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w600,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                             Row(
@@ -69,12 +68,12 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                                   textAlign: TextAlign.left,
                                 ),
                               ],
-                            )
+                            ),
                           ] else ...[
                             const Row(
                               children: [
                                 Text(
-                                  "Eliza",
+                                  'Eliza',
                                   style: TextStyle(
                                     color: Colors.blue,
                                     fontWeight: FontWeight.w600,
@@ -91,10 +90,10 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                                 ),
                                 const Spacer(),
                               ],
-                            )
-                          ]
+                            ),
+                          ],
                         ],
-                      )
+                      ),
                   ],
                 ),
               ),
@@ -122,9 +121,9 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                       'Send',
                       style: TextStyle(color: Colors.blue),
                     ),
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),

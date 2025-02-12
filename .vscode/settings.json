@@ -1,4 +1,28 @@
 {
+  "go.lintOnSave": "workspace",
+  "go.vetOnSave": "workspace",
+  "go.buildTags": "",
+  "go.buildFlags": [],
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [
+    "--fast"
+  ],
+  "go.vetFlags": [],
+  "go.testOnSave": false,
+  "go.coverOnSave": false,
+  "go.formatTool": "gofumpt",
+  "go.formatFlags": [],
+  "go.goroot": "",
+  "go.gopath": "",
+  "go.inferGopath": true,
+  "go.testFlags": [
+    "-v"
+  ],
+  "[go]": {
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go"
+  },
   "[dart]": {
     "editor.selectionHighlight": false,
     "editor.suggest.snippetsPreventQuickSuggestions": false,
@@ -38,13 +62,15 @@
   "explorer.fileNesting.patterns": {
     "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, template.iml, pubspec.lock, lefthook.yaml, pubspec_overrides.yaml",
     "firebase.json": ".firebaserc, firestore.rules, firestore.indexes.json,storage.rules, remoteconfig.template.json",
-    "*.dart": "$(capture).g.dart, $(capture).freezed.dart, ${capture}.state.dart, ${capture}.viewmodel.dart"
+    "*.dart": "$(capture).g.dart, $(capture).freezed.dart, ${capture}.state.dart, ${capture}.viewmodel.dart",
+    "*.go": "$(capture)_test.go, $(capture).gen.go, $(capture).mock.go",
   },
   "files.associations": {
     "*.apns": "json"
   },
   "files.watcherExclude": {
     "**/.fvm": true,
+    "**/vendor": true,
     ".idea": true
   },
   "java.configuration.updateBuildConfiguration": "automatic",

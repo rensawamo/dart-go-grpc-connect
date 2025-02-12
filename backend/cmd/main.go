@@ -14,12 +14,10 @@ import (
 	"github.com/rensawamo/dart-go-grpc-connect/backend/di"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/gen/auth/v1/authv1connect"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/gen/eliza/v1/elizav1connect"
-
 	"github.com/rs/cors"
+	"github.com/volatiletech/sqlboiler/v4/boil"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
-
-	"github.com/volatiletech/sqlboiler/v4/boil"
 )
 
 func main() {

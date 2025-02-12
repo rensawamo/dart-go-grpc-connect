@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 /// アプリ全体の 宣言的なルーティングを提供するProvider
 final routerProvider = Provider((ref) {
   final pref = ref.watch(sharedPreferencesWithCacheProvider);
-  bool isLogined = pref.getBool('isLogined') ?? false;
+  var isLogined = pref.getBool('isLogined') ?? false;
   return GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: isLogined ? Routes.eliza : Routes.login,

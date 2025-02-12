@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/di_provider/shard_preferences_with_cache_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -14,14 +14,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  void login() async {
+  Future<void> login() async {
     if (formKey.currentState?.validate() ?? false) {
       final email = emailController.text;
       final password = passwordController.text;
 
       final sharedPreferences = ref.read(sharedPreferencesWithCacheProvider);
 
-      final success = email == "test@google.com" && password == "example";
+      final success = email == 'test@google.com' && password == 'example';
 
       if (success) {
         sharedPreferences.setBool('isLogined', true);
