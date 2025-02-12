@@ -1,4 +1,36 @@
 {
+  "cSpell.customDictionaries": {
+    "words": {
+      "name": "words",
+      "path": "${workspaceRoot}/.cspell/words.txt",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  },
+  "cSpell.ignorePaths": [
+    "dart_defines",
+    "firebase_options*.dart",
+    "google-services.json",
+    "node_modules",
+    "package-lock.json",
+    "vscode-extension",
+    "*.gen.dart",
+    "*.lock",
+    "*.xcconfig",
+    "**/fvm",
+    "**/.pub-cache",
+    ".git/objects",
+    ".metadata",
+    ".vscode",
+    ".vscode-insiders",
+    "**/vendor",
+    "**/bin",
+    "**/pkg",
+    "go.sum",
+    "*.pb.go",
+    "*.gen.go"
+  ],
+  "cSpell.spellCheckOnlyWorkspaceFiles": true,
   "go.lintOnSave": "workspace",
   "go.vetOnSave": "workspace",
   "go.buildTags": "",
