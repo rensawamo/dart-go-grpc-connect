@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend/di_provider/secure_storage_provider.dart';
-import 'package:frontend/state/model/token.dart';
+import 'package:frontend/core/provider/secure_storage_provider.dart';
+import 'package:frontend/core/state/model/token.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'token_notifier.g.dart';

@@ -5,9 +5,9 @@ import 'package:connectrpc/protocol/grpc.dart' as grpc;
 import 'package:connectrpc/test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend/gen/eliza/v1/eliza.connect.spec.dart';
-import 'package:frontend/gen/eliza/v1/eliza.pb.dart';
-import 'package:frontend/interceptor.dart';
+import 'package:frontend/core/gen/eliza/v1/eliza.connect.spec.dart';
+import 'package:frontend/core/gen/eliza/v1/eliza.pb.dart';
+import 'package:frontend/core/util/interceptor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'grpc_transport.g.dart';

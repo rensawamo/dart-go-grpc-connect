@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend/di_provider/shard_preferences_with_cache_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -19,12 +18,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       final email = emailController.text;
       final password = passwordController.text;
 
-      final sharedPreferences = ref.read(sharedPreferencesWithCacheProvider);
-
       final success = email == 'test@google.com' && password == 'example';
 
       if (success) {
-        sharedPreferences.setBool('isLogined', true);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('ログイン成功！')),
         );
