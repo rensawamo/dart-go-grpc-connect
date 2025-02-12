@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/core/gen/eliza/v1/eliza.connect.client.dart';
 import 'package:frontend/core/gen/eliza/v1/eliza.pb.dart';
-import 'package:frontend/core/provider/grpc_transport.dart';
+import 'package:frontend/core/provider/transport.dart';
 
 class ChatPage extends ConsumerStatefulWidget {
   const ChatPage({

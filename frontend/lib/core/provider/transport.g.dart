@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'grpc_transport.dart';
+part of 'transport.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$grpcTransportHash() => r'87c0d0e0eae1abb762a1cf7bce2e43ba72cf3d12';
+String _$grpcTransportHash() => r'c1360a06be96ee73a3bdee6206af58a0f838fc25';
 
 /// Copied from Dart SDK
 class _SystemHash {

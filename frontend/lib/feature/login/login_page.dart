@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/core/gen/auth/v1/auth.connect.client.dart';
 import 'package:frontend/core/gen/auth/v1/auth.pbserver.dart';
-import 'package:frontend/core/provider/grpc_transport.dart';
+import 'package:frontend/core/provider/transport.dart';
 import 'package:frontend/core/router/app_route_data.dart';
 import 'package:frontend/core/state/token_notifier.dart';
 

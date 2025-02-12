@@ -1,13 +1,13 @@
 import 'package:connectrpc/connect.dart';
 import 'package:connectrpc/http2.dart';
 import 'package:connectrpc/protobuf.dart';
-import 'package:connectrpc/protocol/grpc.dart' as grpc;
+import 'package:connectrpc/protocol/connect.dart' as protocol;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/core/provider/metadata_interceptor.dart';
 import 'package:frontend/core/util/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'grpc_transport.g.dart';
+part 'transport.g.dart';
 
 @Riverpod(keepAlive: true)
 Transport grpcTransport(
@@ -16,11 +16,10 @@ Transport grpcTransport(
 }) {
   final metadataInterceptor = ref.watch(metaDataInterceptorProvider);
 
-  final transport = grpc.Transport(
+  final transport = protocol.Transport(
     baseUrl: 'http://localhost:8080',
     codec: const ProtoCodec(),
     httpClient: createHttpClient(),
-    statusParser: const StatusParser(),
     interceptors: [
       const LoggingInterceptor().call,
       if (isRequireMetaData) metadataInterceptor.call,
