@@ -15,6 +15,6 @@ type ElizaRepository interface {
 }
 
 type ElizaUsecase interface {
-	CreateSentence(c context.Context, task *Eliza) error
+	CreateSentence(c context.Context, eliza *Eliza) error
 	FetchSentence(c context.Context) (Eliza, error)
 }
