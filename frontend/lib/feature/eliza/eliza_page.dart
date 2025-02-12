@@ -23,12 +23,16 @@ class ChatPageState extends ConsumerState<ChatPage> {
 
   Future<void> call(String sentence) async {
     addMessage(sentence, byUser: true);
-    final response = await ElizaServiceClient(
-      ref.read(grpcTransportProvider()),
-    ).say(
-      SayRequest(sentence: sentence),
-    );
-    addMessage(response.sentence, byUser: false);
+    try {
+      final response = await ElizaServiceClient(
+        ref.read(grpcTransportProvider()),
+      ).say(
+        SayRequest(sentence: sentence),
+      );
+      addMessage(response.sentence, byUser: false);
+    } on Exception catch (e) {
+      addMessage(e.toString(), byUser: false);
+    }
   }
 
   @override

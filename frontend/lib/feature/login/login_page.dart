@@ -1,4 +1,3 @@
-import 'package:connectrpc/connect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/core/gen/auth/v1/auth.connect.client.dart';
@@ -31,9 +30,9 @@ class LoginPageState extends ConsumerState<LoginPage> {
         LoginRequest(email: email, password: password),
       );
       return response.token;
-    } on ConnectException catch (e) {
+    } on Exception catch (e) {
       setState(() {
-        error = e.message;
+        error = e.toString();
       });
     }
     return null;

@@ -29,7 +29,8 @@
     "go.sum",
     "*.pb.go",
     "*.gen.go",
-    ".envrc"
+    ".envrc",
+    "README.md",
   ],
   "cSpell.spellCheckOnlyWorkspaceFiles": true,
   "go.lintOnSave": "workspace",
