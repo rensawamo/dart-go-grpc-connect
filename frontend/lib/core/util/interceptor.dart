@@ -36,8 +36,7 @@ class MetadataInterceptor {
 
   AnyFn<I, O> call<I extends Object, O extends Object>(AnyFn<I, O> next) {
     return (req) async {
-      final headers = req.headers;
-      headers.add('x-client', 'eliza');
+      req.headers.add('x-client', 'eliza');
       return next(req);
     };
   }
