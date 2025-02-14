@@ -35,7 +35,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
       );
       return response.token;
     } on Exception catch (e, s) {
-      printLongText('\nAuthServiceClient error : $e', stackTrace: s);
+      printLongText('AuthServiceClient error : $e', stackTrace: s);
       setState(() {
         error = e.toString();
       });
