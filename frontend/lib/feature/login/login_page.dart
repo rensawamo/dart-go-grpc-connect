@@ -5,6 +5,7 @@ import 'package:frontend/core/gen/auth/v1/auth.pbserver.dart';
 import 'package:frontend/core/provider/transport.dart';
 import 'package:frontend/core/router/app_route_data.dart';
 import 'package:frontend/core/state/token_notifier.dart';
+import 'package:frontend/core/util/logger.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -24,13 +25,17 @@ class LoginPageState extends ConsumerState<LoginPage> {
     final password = passwordController.text;
 
     try {
+      final request = LoginRequest(email: email, password: password);
+      printLongText('LoginRequest email : ${request.email}');
+      printLongText('LoginRequest password : ${request.password}');
       final response = await AuthServiceClient(
         ref.read(grpcTransportProvider(isRequireMetaData: false)),
       ).login(
-        LoginRequest(email: email, password: password),
+        request,
       );
       return response.token;
-    } on Exception catch (e) {
+    } on Exception catch (e, s) {
+      printLongText('\nAuthServiceClient error : $e', stackTrace: s);
       setState(() {
         error = e.toString();
       });

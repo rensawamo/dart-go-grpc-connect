@@ -10,7 +10,7 @@ part 'metadata_interceptor.g.dart';
 MetadataInterceptor metaDataInterceptor(
   Ref ref,
 ) {
-  final token = ref.watch(tokenNotifierProvider);
+  final token = ref.read(tokenNotifierProvider);
   return MetadataInterceptor(token);
 }
 

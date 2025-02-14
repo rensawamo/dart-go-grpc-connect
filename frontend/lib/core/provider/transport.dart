@@ -14,7 +14,7 @@ Transport grpcTransport(
   Ref ref, {
   bool isRequireMetaData = true,
 }) {
-  final metadataInterceptor = ref.watch(metaDataInterceptorProvider);
+  final metadataInterceptor = ref.read(metaDataInterceptorProvider);
 
   final transport = protocol.Transport(
     baseUrl: 'http://localhost:8080',
@@ -34,7 +34,8 @@ class LoggingInterceptor {
   AnyFn<I, O> call<I extends Object, O extends Object>(AnyFn<I, O> next) {
     return (req) async {
       final res = await next(req);
-      logger.i('Request: ${req.headers.entries}');
+      printLongText('url: ${req.url}');
+      printLongText('Header Entries: ${req.headers.entries}');
       switch (res) {
         case StreamResponse<I, O>():
           return StreamResponse(
@@ -44,7 +45,7 @@ class LoggingInterceptor {
             res.trailers,
           );
         case UnaryResponse<I, O>(message: final message):
-          logger.d(message);
+          printLongText('Response: $message');
           return res;
       }
     };
@@ -52,7 +53,7 @@ class LoggingInterceptor {
 
   Stream<T> _logEach<T>(Stream<T> stream) async* {
     await for (final next in stream) {
-      logger.d('Response: $next');
+      printLongText('Response: $next');
       yield next;
     }
   }

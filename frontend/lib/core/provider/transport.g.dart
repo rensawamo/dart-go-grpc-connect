@@ -6,7 +6,7 @@ part of 'transport.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$grpcTransportHash() => r'c1360a06be96ee73a3bdee6206af58a0f838fc25';
+String _$grpcTransportHash() => r'95288f8892a14dfdba3353f06d3baf2a81e845b0';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -72,7 +72,7 @@ class GrpcTransportFamily extends Family<Transport> {
 }
 
 /// See also [grpcTransport].
-class GrpcTransportProvider extends Provider<Transport> {
+class GrpcTransportProvider extends AutoDisposeProvider<Transport> {
   /// See also [grpcTransport].
   GrpcTransportProvider({
     bool isRequireMetaData = true,
@@ -124,7 +124,7 @@ class GrpcTransportProvider extends Provider<Transport> {
   }
 
   @override
-  ProviderElement<Transport> createElement() {
+  AutoDisposeProviderElement<Transport> createElement() {
     return _GrpcTransportProviderElement(this);
   }
 
@@ -145,13 +145,13 @@ class GrpcTransportProvider extends Provider<Transport> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin GrpcTransportRef on ProviderRef<Transport> {
+mixin GrpcTransportRef on AutoDisposeProviderRef<Transport> {
   /// The parameter `isRequireMetaData` of this provider.
   bool get isRequireMetaData;
 }
 
-class _GrpcTransportProviderElement extends ProviderElement<Transport>
-    with GrpcTransportRef {
+class _GrpcTransportProviderElement
+    extends AutoDisposeProviderElement<Transport> with GrpcTransportRef {
   _GrpcTransportProviderElement(super.provider);
 
   @override

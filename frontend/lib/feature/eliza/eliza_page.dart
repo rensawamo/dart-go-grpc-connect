@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/core/gen/eliza/v1/eliza.connect.client.dart';
 import 'package:frontend/core/gen/eliza/v1/eliza.pb.dart';
 import 'package:frontend/core/provider/transport.dart';
+import 'package:frontend/core/util/logger.dart';
 
 class ChatPage extends ConsumerStatefulWidget {
   const ChatPage({
@@ -24,13 +25,16 @@ class ChatPageState extends ConsumerState<ChatPage> {
   Future<void> call(String sentence) async {
     addMessage(sentence, byUser: true);
     try {
+      final request = SayRequest(sentence: sentence);
+      printLongText('SayRequest sentence : ${request.sentence}');
       final response = await ElizaServiceClient(
         ref.read(grpcTransportProvider()),
       ).say(
         SayRequest(sentence: sentence),
       );
       addMessage(response.sentence, byUser: false);
-    } on Exception catch (e) {
+    } on Exception catch (e, s) {
+      printLongText('ElizaServiceClient error : $e', stackTrace: s);
       addMessage(e.toString(), byUser: false);
     }
   }
