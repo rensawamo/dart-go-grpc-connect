@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'metadata_interceptor.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 MetadataInterceptor metaDataInterceptor(
   Ref ref,
 ) {

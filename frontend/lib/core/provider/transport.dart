@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'transport.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 Transport grpcTransport(
   Ref ref, {
   bool isRequireMetaData = true,
@@ -34,9 +34,7 @@ class LoggingInterceptor {
   AnyFn<I, O> call<I extends Object, O extends Object>(AnyFn<I, O> next) {
     return (req) async {
       final res = await next(req);
-      logger
-        ..d('Request: $req')
-        ..d('Headers: ${req.headers}');
+      logger.i('Request: ${req.headers.entries}');
       switch (res) {
         case StreamResponse<I, O>():
           return StreamResponse(
