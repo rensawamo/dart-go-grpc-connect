@@ -1,5 +1,16 @@
 # バックエンド(Golang)
 
+### プロジェクト用の暗号鍵を作成
+```sh
+$ ssh-keygen -t rsa -b 2048 -f $PRIVATE_KEY_PATH -N ""
+$ ssh-keygen -p -m PEM -f $PRIVATE_KEY_PATH
+```
+
+backend/.envrcの環境変数を変更する。
+```sh
+PRIVATE_KEY_PATH=YOURS
+```
+
 ### backendに移動してdirenvを読み込む
 ```sh
 $ cd backend && direnv allow
