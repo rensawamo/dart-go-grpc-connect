@@ -10,6 +10,15 @@ message SayResponse {
   string sentence = 1;
 }
 
+message CreateSentenceRequest {
+  string input = 1;
+}
+
+message CreateSentenceResponse {
+  string sentence = 1;
+}
+
 service ElizaService {
   rpc Say(SayRequest) returns (SayResponse) {}
+  rpc CreateSentence(CreateSentenceRequest) returns (CreateSentenceResponse) {}
 }

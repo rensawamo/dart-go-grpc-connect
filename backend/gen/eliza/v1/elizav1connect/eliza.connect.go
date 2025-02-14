@@ -37,12 +37,6 @@ const (
 	ElizaServiceSayProcedure = "/eliza.v1.ElizaService/Say"
 )
 
-// These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
-var (
-	elizaServiceServiceDescriptor   = v1.File_eliza_v1_eliza_proto.Services().ByName("ElizaService")
-	elizaServiceSayMethodDescriptor = elizaServiceServiceDescriptor.Methods().ByName("Say")
-)
-
 // ElizaServiceClient is a client for the eliza.v1.ElizaService service.
 type ElizaServiceClient interface {
 	Say(context.Context, *connect.Request[v1.SayRequest]) (*connect.Response[v1.SayResponse], error)
@@ -57,11 +51,12 @@ type ElizaServiceClient interface {
 // http://api.acme.com or https://acme.com/grpc).
 func NewElizaServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) ElizaServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
+	elizaServiceMethods := v1.File_eliza_v1_eliza_proto.Services().ByName("ElizaService").Methods()
 	return &elizaServiceClient{
 		say: connect.NewClient[v1.SayRequest, v1.SayResponse](
 			httpClient,
 			baseURL+ElizaServiceSayProcedure,
-			connect.WithSchema(elizaServiceSayMethodDescriptor),
+			connect.WithSchema(elizaServiceMethods.ByName("Say")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -88,10 +83,11 @@ type ElizaServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	elizaServiceMethods := v1.File_eliza_v1_eliza_proto.Services().ByName("ElizaService").Methods()
 	elizaServiceSayHandler := connect.NewUnaryHandler(
 		ElizaServiceSayProcedure,
 		svc.Say,
-		connect.WithSchema(elizaServiceSayMethodDescriptor),
+		connect.WithSchema(elizaServiceMethods.ByName("Say")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/eliza.v1.ElizaService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
