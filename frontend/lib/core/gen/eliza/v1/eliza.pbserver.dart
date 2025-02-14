@@ -22,10 +22,12 @@ export 'eliza.pb.dart';
 
 abstract class ElizaServiceBase extends $pb.GeneratedService {
   $async.Future<$1.SayResponse> say($pb.ServerContext ctx, $1.SayRequest request);
+  $async.Future<$1.CreateSentenceResponse> createSentence($pb.ServerContext ctx, $1.CreateSentenceRequest request);
 
   $pb.GeneratedMessage createRequest($core.String methodName) {
     switch (methodName) {
       case 'Say': return $1.SayRequest();
+      case 'CreateSentence': return $1.CreateSentenceRequest();
       default: throw $core.ArgumentError('Unknown method: $methodName');
     }
   }
@@ -33,6 +35,7 @@ abstract class ElizaServiceBase extends $pb.GeneratedService {
   $async.Future<$pb.GeneratedMessage> handleCall($pb.ServerContext ctx, $core.String methodName, $pb.GeneratedMessage request) {
     switch (methodName) {
       case 'Say': return this.say(ctx, request as $1.SayRequest);
+      case 'CreateSentence': return this.createSentence(ctx, request as $1.CreateSentenceRequest);
       default: throw $core.ArgumentError('Unknown method: $methodName');
     }
   }

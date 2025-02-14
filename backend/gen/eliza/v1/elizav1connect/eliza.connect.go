@@ -35,11 +35,15 @@ const (
 const (
 	// ElizaServiceSayProcedure is the fully-qualified name of the ElizaService's Say RPC.
 	ElizaServiceSayProcedure = "/eliza.v1.ElizaService/Say"
+	// ElizaServiceCreateSentenceProcedure is the fully-qualified name of the ElizaService's
+	// CreateSentence RPC.
+	ElizaServiceCreateSentenceProcedure = "/eliza.v1.ElizaService/CreateSentence"
 )
 
 // ElizaServiceClient is a client for the eliza.v1.ElizaService service.
 type ElizaServiceClient interface {
 	Say(context.Context, *connect.Request[v1.SayRequest]) (*connect.Response[v1.SayResponse], error)
+	CreateSentence(context.Context, *connect.Request[v1.CreateSentenceRequest]) (*connect.Response[v1.CreateSentenceResponse], error)
 }
 
 // NewElizaServiceClient constructs a client for the eliza.v1.ElizaService service. By default, it
@@ -59,12 +63,19 @@ func NewElizaServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 			connect.WithSchema(elizaServiceMethods.ByName("Say")),
 			connect.WithClientOptions(opts...),
 		),
+		createSentence: connect.NewClient[v1.CreateSentenceRequest, v1.CreateSentenceResponse](
+			httpClient,
+			baseURL+ElizaServiceCreateSentenceProcedure,
+			connect.WithSchema(elizaServiceMethods.ByName("CreateSentence")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // elizaServiceClient implements ElizaServiceClient.
 type elizaServiceClient struct {
-	say *connect.Client[v1.SayRequest, v1.SayResponse]
+	say            *connect.Client[v1.SayRequest, v1.SayResponse]
+	createSentence *connect.Client[v1.CreateSentenceRequest, v1.CreateSentenceResponse]
 }
 
 // Say calls eliza.v1.ElizaService.Say.
@@ -72,9 +83,15 @@ func (c *elizaServiceClient) Say(ctx context.Context, req *connect.Request[v1.Sa
 	return c.say.CallUnary(ctx, req)
 }
 
+// CreateSentence calls eliza.v1.ElizaService.CreateSentence.
+func (c *elizaServiceClient) CreateSentence(ctx context.Context, req *connect.Request[v1.CreateSentenceRequest]) (*connect.Response[v1.CreateSentenceResponse], error) {
+	return c.createSentence.CallUnary(ctx, req)
+}
+
 // ElizaServiceHandler is an implementation of the eliza.v1.ElizaService service.
 type ElizaServiceHandler interface {
 	Say(context.Context, *connect.Request[v1.SayRequest]) (*connect.Response[v1.SayResponse], error)
+	CreateSentence(context.Context, *connect.Request[v1.CreateSentenceRequest]) (*connect.Response[v1.CreateSentenceResponse], error)
 }
 
 // NewElizaServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -90,10 +107,18 @@ func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect.HandlerOpti
 		connect.WithSchema(elizaServiceMethods.ByName("Say")),
 		connect.WithHandlerOptions(opts...),
 	)
+	elizaServiceCreateSentenceHandler := connect.NewUnaryHandler(
+		ElizaServiceCreateSentenceProcedure,
+		svc.CreateSentence,
+		connect.WithSchema(elizaServiceMethods.ByName("CreateSentence")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/eliza.v1.ElizaService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ElizaServiceSayProcedure:
 			elizaServiceSayHandler.ServeHTTP(w, r)
+		case ElizaServiceCreateSentenceProcedure:
+			elizaServiceCreateSentenceHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -105,4 +130,8 @@ type UnimplementedElizaServiceHandler struct{}
 
 func (UnimplementedElizaServiceHandler) Say(context.Context, *connect.Request[v1.SayRequest]) (*connect.Response[v1.SayResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("eliza.v1.ElizaService.Say is not implemented"))
+}
+
+func (UnimplementedElizaServiceHandler) CreateSentence(context.Context, *connect.Request[v1.CreateSentenceRequest]) (*connect.Response[v1.CreateSentenceResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("eliza.v1.ElizaService.CreateSentence is not implemented"))
 }

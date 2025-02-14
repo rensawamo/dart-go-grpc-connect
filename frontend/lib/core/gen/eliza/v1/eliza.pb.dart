@@ -114,12 +114,115 @@ class SayResponse extends $pb.GeneratedMessage {
   void clearSentence() => clearField(1);
 }
 
+class CreateSentenceRequest extends $pb.GeneratedMessage {
+  factory CreateSentenceRequest({
+    $core.String? input,
+  }) {
+    final $result = create();
+    if (input != null) {
+      $result.input = input;
+    }
+    return $result;
+  }
+  CreateSentenceRequest._() : super();
+  factory CreateSentenceRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateSentenceRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateSentenceRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'eliza.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'input')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateSentenceRequest clone() => CreateSentenceRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateSentenceRequest copyWith(void Function(CreateSentenceRequest) updates) => super.copyWith((message) => updates(message as CreateSentenceRequest)) as CreateSentenceRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CreateSentenceRequest create() => CreateSentenceRequest._();
+  CreateSentenceRequest createEmptyInstance() => create();
+  static $pb.PbList<CreateSentenceRequest> createRepeated() => $pb.PbList<CreateSentenceRequest>();
+  @$core.pragma('dart2js:noInline')
+  static CreateSentenceRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateSentenceRequest>(create);
+  static CreateSentenceRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get input => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set input($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasInput() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearInput() => clearField(1);
+}
+
+class CreateSentenceResponse extends $pb.GeneratedMessage {
+  factory CreateSentenceResponse({
+    $core.String? sentence,
+  }) {
+    final $result = create();
+    if (sentence != null) {
+      $result.sentence = sentence;
+    }
+    return $result;
+  }
+  CreateSentenceResponse._() : super();
+  factory CreateSentenceResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateSentenceResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateSentenceResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'eliza.v1'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'sentence')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateSentenceResponse clone() => CreateSentenceResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateSentenceResponse copyWith(void Function(CreateSentenceResponse) updates) => super.copyWith((message) => updates(message as CreateSentenceResponse)) as CreateSentenceResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CreateSentenceResponse create() => CreateSentenceResponse._();
+  CreateSentenceResponse createEmptyInstance() => create();
+  static $pb.PbList<CreateSentenceResponse> createRepeated() => $pb.PbList<CreateSentenceResponse>();
+  @$core.pragma('dart2js:noInline')
+  static CreateSentenceResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateSentenceResponse>(create);
+  static CreateSentenceResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sentence => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sentence($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSentence() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSentence() => clearField(1);
+}
+
 class ElizaServiceApi {
   $pb.RpcClient _client;
   ElizaServiceApi(this._client);
 
   $async.Future<SayResponse> say($pb.ClientContext? ctx, SayRequest request) =>
     _client.invoke<SayResponse>(ctx, 'ElizaService', 'Say', request, SayResponse())
+  ;
+  $async.Future<CreateSentenceResponse> createSentence($pb.ClientContext? ctx, CreateSentenceRequest request) =>
+    _client.invoke<CreateSentenceResponse>(ctx, 'ElizaService', 'CreateSentence', request, CreateSentenceResponse())
   ;
 }
 

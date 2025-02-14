@@ -34,4 +34,11 @@ curl --header "Authorization: Bearer $ACCESS_TOKEN" \
 --data '{}' \
 http://localhost:8080/eliza.v1.ElizaService/Say
 
+
+curl --header "Authorization: Bearer $ACCESS_TOKEN" \
+--header "Content-Type: application/json" \
+--data '{"input": "Create a new sentence based on this input."}' \
+http://localhost:8080/eliza.v1.ElizaService/CreateSentence
+
+
 ```

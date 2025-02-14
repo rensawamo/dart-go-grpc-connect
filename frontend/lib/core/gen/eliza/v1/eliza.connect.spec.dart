@@ -16,4 +16,11 @@ abstract final class ElizaService {
     elizav1eliza.SayRequest.new,
     elizav1eliza.SayResponse.new,
   );
+
+  static const createSentence = connect.Spec(
+    '/$name/CreateSentence',
+    connect.StreamType.unary,
+    elizav1eliza.CreateSentenceRequest.new,
+    elizav1eliza.CreateSentenceResponse.new,
+  );
 }

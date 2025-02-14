@@ -19,6 +19,21 @@ func NewElizaHandler(usecase domain.ElizaUsecase) *ElizaHandler {
 	}
 }
 
+func (h *ElizaHandler) CreateSentence(ctx context.Context, req *connect.Request[elizav1.CreateSentenceRequest]) (*connect.Response[elizav1.CreateSentenceResponse], error) {
+	// リクエストからセンテンスを取得
+	sentence := req.Msg.Input
+
+	// ユースケースにセンテンスを保存
+	err := h.elizaUsecase.CreateSentence(ctx, &domain.Eliza{Sentence: sentence})
+	if err != nil {
+		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("failed to create sentence: %w", err))
+	}
+
+	return connect.NewResponse(&elizav1.CreateSentenceResponse{
+		Sentence: sentence,
+	}), nil
+}
+
 func (h *ElizaHandler) Say(ctx context.Context, req *connect.Request[elizav1.SayRequest]) (*connect.Response[elizav1.SayResponse], error) {
 	// ランダムな文章をユースケースから取得
 	sentence, err := h.elizaUsecase.FetchSentence(ctx)
