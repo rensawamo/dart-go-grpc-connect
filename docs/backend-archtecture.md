@@ -54,11 +54,11 @@ backend/
 # リクエストフロー
 
 ## パブリックAPI
-![go-arch-public-api-request-flow (1)](https://github.com/user-attachments/assets/b6165a6f-f544-476e-9502-4049568d617b)
+<img width="529" alt="image" src="https://github.com/user-attachments/assets/7d830f16-12e2-4338-b01b-b7ebb03aa732" />
 
 
 ## 認証付きAPI
-![go-arch-private-api-request-flow](https://github.com/user-attachments/assets/3216ad56-452a-4a6b-ad53-858e8d05ba91)
+<img width="516" alt="image" src="https://github.com/user-attachments/assets/2ce62a77-e7a0-4457-8b92-f86be4bc761d" />
 
 
 # SET UP
