@@ -163,5 +163,5 @@ $ curl --location --request POST 'http://localhost:8080/eliza.v1.ElizaService/Cr
 ```
 
 # 参考
-- https://github.com/rensawamo/go-backend-clean-architecture
+- https://github.com/amitshekhariitbhu/go-backend-clean-architecture
 - https://github.com/7oh2020/connect-tasklist
