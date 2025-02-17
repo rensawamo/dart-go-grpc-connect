@@ -53,7 +53,7 @@ $ make run
 # フロントエンド(Flutter)
 
 ```sh
-$ cd frontend/flutter run
+$ cd frontend && flutter run
 ```
 
 ①上記のマイグレーションで登録されているユーザーでログインをして、
