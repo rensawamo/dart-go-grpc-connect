@@ -1,3 +1,7 @@
+# このプロジェクトのアーキテクチャについて
+- **[Backend](https://github.com/rensawamo/dart-go-grpc-connect/blob/main/docs/backend-archtecture.md)**
+- **[Frontend](https://github.com/rensawamo/dart-go-grpc-connect/blob/main/docs/frontend-archtecture.md)**
+
 # proto ディレクトリの役割
 proto ディレクトリは、**バックエンド (backend) と フロントエンド (frontend) の両方で、共通のサービス定義を提供します**。
 
