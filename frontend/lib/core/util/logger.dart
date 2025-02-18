@@ -20,7 +20,7 @@ void printLongText(
     );
   }
 
-  if (code != null && code != 0) {
+  if (code != null && code.isNotEmpty) {
     debugPrint('Error Code: $code');
   }
 
