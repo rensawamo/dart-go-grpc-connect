@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectrpc/connect.dart';
 import 'package:connectrpc/http2.dart';
 import 'package:connectrpc/protobuf.dart';
@@ -17,7 +19,8 @@ Transport transport(
   final metadataInterceptor = ref.read(metaDataInterceptorProvider);
 
   final transport = protocol.Transport(
-    baseUrl: 'http://localhost:8080',
+    baseUrl:
+        Platform.isAndroid ? 'http://10.0.2.2:8080' : 'http://localhost:8080',
     codec: const ProtoCodec(),
     httpClient: createHttpClient(),
     interceptors: [
