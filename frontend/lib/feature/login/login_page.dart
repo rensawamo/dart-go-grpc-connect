@@ -1,3 +1,4 @@
+import 'package:connectrpc/connect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/core/gen/auth/v1/auth.connect.client.dart';
@@ -34,7 +35,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
         request,
       );
       return response.token;
-    } on Exception catch (e, s) {
+    } on ConnectException catch (e, s) {
       printLongText('AuthServiceClient error : $e', stackTrace: s);
       setState(() {
         error = e.toString();

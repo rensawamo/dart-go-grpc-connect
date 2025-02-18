@@ -1,3 +1,4 @@
+import 'package:connectrpc/connect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/core/gen/eliza/v1/eliza.connect.client.dart';
@@ -33,7 +34,7 @@ class ChatPageState extends ConsumerState<ChatPage> {
         SayRequest(sentence: sentence),
       );
       addMessage(response.sentence, byUser: false);
-    } on Exception catch (e, s) {
+    } on ConnectException catch (e, s) {
       printLongText('ElizaServiceClient error : $e', stackTrace: s);
       addMessage(e.toString(), byUser: false);
     }
