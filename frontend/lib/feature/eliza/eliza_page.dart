@@ -31,7 +31,7 @@ class ChatPageState extends ConsumerState<ChatPage> {
       final response = await ElizaServiceClient(
         ref.read(transportProvider()),
       ).say(
-        SayRequest(sentence: sentence),
+        request,
       );
       addMessage(response.sentence, byUser: false);
     } on ConnectException catch (e, s) {
