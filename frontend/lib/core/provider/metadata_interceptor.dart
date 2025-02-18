@@ -15,16 +15,40 @@ MetadataInterceptor metaDataInterceptor(
 }
 
 class MetadataInterceptor {
-  const MetadataInterceptor(
-    this.token,
-  );
+  const MetadataInterceptor(this.token);
   final Token token;
 
   AnyFn<I, O> call<I extends Object, O extends Object>(AnyFn<I, O> next) {
     return (req) async {
+      // 10秒のタイムアウトを設定
+      final signal = TimeoutSignal(const Duration(seconds: 10));
+      // Headerに認証情報を追加
       req.headers.add('Authorization', 'Bearer ${token.accessToken}');
-      // req.headers.add('DeviceToken', 'Bearer $token.deviceToken');  etc..
-      return next(req);
+      // req.headers.add('DeviceToken', 'Bearer $token.deviceToken'); ...etc
+
+      switch (req) {
+        case UnaryRequest<I, O>(message: final message):
+          return next(
+            UnaryRequest<I, O>(
+              req.spec,
+              req.url,
+              req.headers,
+              message,
+              signal,
+            ),
+          );
+
+        case StreamRequest<I, O>(message: final message):
+          return next(
+            StreamRequest<I, O>(
+              req.spec,
+              req.url,
+              req.headers,
+              message,
+              signal,
+            ),
+          );
+      }
     };
   }
 }
