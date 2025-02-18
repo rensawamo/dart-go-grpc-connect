@@ -10,7 +10,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'transport.g.dart';
 
 @riverpod
-Transport grpcTransport(
+Transport transport(
   Ref ref, {
   bool isRequireMetaData = true,
 }) {

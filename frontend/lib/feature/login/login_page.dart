@@ -29,7 +29,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
       printLongText('LoginRequest email : ${request.email}');
       printLongText('LoginRequest password : ${request.password}');
       final response = await AuthServiceClient(
-        ref.read(grpcTransportProvider(isRequireMetaData: false)),
+        ref.read(transportProvider(isRequireMetaData: false)),
       ).login(
         request,
       );

@@ -7,7 +7,7 @@ part of 'metadata_interceptor.dart';
 // **************************************************************************
 
 String _$metaDataInterceptorHash() =>
-    r'226c497ac76f012839adc956be9534af5f027fd3';
+    r'8f7bfed9de7b85e867bf037ec196a4866b44b863';
 
 /// See also [metaDataInterceptor].
 @ProviderFor(metaDataInterceptor)

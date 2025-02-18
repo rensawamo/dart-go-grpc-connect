@@ -6,7 +6,7 @@ part of 'transport.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$grpcTransportHash() => r'95288f8892a14dfdba3353f06d3baf2a81e845b0';
+String _$transportHash() => r'29375306268645a93f98805609d3945b334bec8a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,27 @@ class _SystemHash {
   }
 }
 
-/// See also [grpcTransport].
-@ProviderFor(grpcTransport)
-const grpcTransportProvider = GrpcTransportFamily();
+/// See also [transport].
+@ProviderFor(transport)
+const transportProvider = TransportFamily();
 
-/// See also [grpcTransport].
-class GrpcTransportFamily extends Family<Transport> {
-  /// See also [grpcTransport].
-  const GrpcTransportFamily();
+/// See also [transport].
+class TransportFamily extends Family<Transport> {
+  /// See also [transport].
+  const TransportFamily();
 
-  /// See also [grpcTransport].
-  GrpcTransportProvider call({
+  /// See also [transport].
+  TransportProvider call({
     bool isRequireMetaData = true,
   }) {
-    return GrpcTransportProvider(
+    return TransportProvider(
       isRequireMetaData: isRequireMetaData,
     );
   }
 
   @override
-  GrpcTransportProvider getProviderOverride(
-    covariant GrpcTransportProvider provider,
+  TransportProvider getProviderOverride(
+    covariant TransportProvider provider,
   ) {
     return call(
       isRequireMetaData: provider.isRequireMetaData,
@@ -68,32 +68,31 @@ class GrpcTransportFamily extends Family<Transport> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'grpcTransportProvider';
+  String? get name => r'transportProvider';
 }
 
-/// See also [grpcTransport].
-class GrpcTransportProvider extends AutoDisposeProvider<Transport> {
-  /// See also [grpcTransport].
-  GrpcTransportProvider({
+/// See also [transport].
+class TransportProvider extends AutoDisposeProvider<Transport> {
+  /// See also [transport].
+  TransportProvider({
     bool isRequireMetaData = true,
   }) : this._internal(
-          (ref) => grpcTransport(
-            ref as GrpcTransportRef,
+          (ref) => transport(
+            ref as TransportRef,
             isRequireMetaData: isRequireMetaData,
           ),
-          from: grpcTransportProvider,
-          name: r'grpcTransportProvider',
+          from: transportProvider,
+          name: r'transportProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$grpcTransportHash,
-          dependencies: GrpcTransportFamily._dependencies,
-          allTransitiveDependencies:
-              GrpcTransportFamily._allTransitiveDependencies,
+                  : _$transportHash,
+          dependencies: TransportFamily._dependencies,
+          allTransitiveDependencies: TransportFamily._allTransitiveDependencies,
           isRequireMetaData: isRequireMetaData,
         );
 
-  GrpcTransportProvider._internal(
+  TransportProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -107,12 +106,12 @@ class GrpcTransportProvider extends AutoDisposeProvider<Transport> {
 
   @override
   Override overrideWith(
-    Transport Function(GrpcTransportRef provider) create,
+    Transport Function(TransportRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: GrpcTransportProvider._internal(
-        (ref) => create(ref as GrpcTransportRef),
+      override: TransportProvider._internal(
+        (ref) => create(ref as TransportRef),
         from: from,
         name: null,
         dependencies: null,
@@ -125,12 +124,12 @@ class GrpcTransportProvider extends AutoDisposeProvider<Transport> {
 
   @override
   AutoDisposeProviderElement<Transport> createElement() {
-    return _GrpcTransportProviderElement(this);
+    return _TransportProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GrpcTransportProvider &&
+    return other is TransportProvider &&
         other.isRequireMetaData == isRequireMetaData;
   }
 
@@ -145,18 +144,17 @@ class GrpcTransportProvider extends AutoDisposeProvider<Transport> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin GrpcTransportRef on AutoDisposeProviderRef<Transport> {
+mixin TransportRef on AutoDisposeProviderRef<Transport> {
   /// The parameter `isRequireMetaData` of this provider.
   bool get isRequireMetaData;
 }
 
-class _GrpcTransportProviderElement
-    extends AutoDisposeProviderElement<Transport> with GrpcTransportRef {
-  _GrpcTransportProviderElement(super.provider);
+class _TransportProviderElement extends AutoDisposeProviderElement<Transport>
+    with TransportRef {
+  _TransportProviderElement(super.provider);
 
   @override
-  bool get isRequireMetaData =>
-      (origin as GrpcTransportProvider).isRequireMetaData;
+  bool get isRequireMetaData => (origin as TransportProvider).isRequireMetaData;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

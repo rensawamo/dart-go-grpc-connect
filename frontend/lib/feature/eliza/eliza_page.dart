@@ -28,7 +28,7 @@ class ChatPageState extends ConsumerState<ChatPage> {
       final request = SayRequest(sentence: sentence);
       printLongText('SayRequest sentence : ${request.sentence}');
       final response = await ElizaServiceClient(
-        ref.read(grpcTransportProvider()),
+        ref.read(transportProvider()),
       ).say(
         SayRequest(sentence: sentence),
       );
