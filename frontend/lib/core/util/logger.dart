@@ -4,6 +4,7 @@ void printLongText(
   String text, {
   int lineLength = 800,
   StackTrace? stackTrace,
+  String? code,
 }) {
   if (text.isEmpty) {
     return;
@@ -17,6 +18,10 @@ void printLongText(
         i + lineLength > trimText.length ? trimText.length : i + lineLength,
       ),
     );
+  }
+
+  if (code != null && code != 0) {
+    debugPrint('Error Code: $code');
   }
 
   if (stackTrace != null) {

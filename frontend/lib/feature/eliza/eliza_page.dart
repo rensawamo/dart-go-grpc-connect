@@ -35,7 +35,17 @@ class ChatPageState extends ConsumerState<ChatPage> {
       );
       addMessage(response.sentence, byUser: false);
     } on ConnectException catch (e, s) {
-      printLongText('ElizaServiceClient error : $e', stackTrace: s);
+      printLongText(
+        'ConnectException: $e',
+        code: e.code.name,
+        stackTrace: s,
+      );
+      addMessage(e.toString(), byUser: false);
+    } on Exception catch (e, s) {
+      printLongText(
+        'Exception: $e',
+        stackTrace: s,
+      );
       addMessage(e.toString(), byUser: false);
     }
   }

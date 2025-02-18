@@ -36,7 +36,19 @@ class LoginPageState extends ConsumerState<LoginPage> {
       );
       return response.token;
     } on ConnectException catch (e, s) {
-      printLongText('AuthServiceClient error : $e', stackTrace: s);
+      printLongText(
+        'ConnectException: $e',
+        code: e.code.name,
+        stackTrace: s,
+      );
+      setState(() {
+        error = e.toString();
+      });
+    } on Exception catch (e, s) {
+      printLongText(
+        'Exception: $e',
+        stackTrace: s,
+      );
       setState(() {
         error = e.toString();
       });
