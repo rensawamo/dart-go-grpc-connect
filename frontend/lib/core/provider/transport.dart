@@ -36,6 +36,7 @@ class LoggingInterceptor {
       final res = await next(req);
       printLongText('url: ${req.url}');
       printLongText('Header Entries: ${req.headers.entries}');
+      printLongText('Trailer Entries: ${res.trailers.entries}');
       switch (res) {
         case StreamResponse<I, O>():
           return StreamResponse(
