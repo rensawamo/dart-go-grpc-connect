@@ -6,3 +6,4 @@ contextkey
 eliza
 bson
 lestrrat
+golangci

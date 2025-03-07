@@ -4,6 +4,10 @@ SQL_MIGRATE_CLI		= sql-migrate
 run:
 	go run cmd/main.go
 
+.PHONY: lint
+lint:
+	golangci-lint run
+
 .PHONY: gen
 gen:
 	buf generate -v --debug --include-imports --include-wkt \
