@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"log"
 	"math/rand"
 
 	"github.com/google/uuid"
@@ -34,7 +35,11 @@ func (er *elizaRepository) CreateSentence(c context.Context, sentence string) er
 	if err != nil {
 		return err
 	}
-	defer tx.Rollback()
+	defer func() {
+		if err := tx.Rollback(); err != nil && err != sql.ErrTxDone {
+			log.Printf("failed to rollback transaction: %v", err)
+		}
+	}()
 	if err := modelSentence.Insert(c, tx, boil.Infer()); err != nil {
 		return err
 	}

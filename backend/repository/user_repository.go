@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"log"
 
 	"github.com/rensawamo/dart-go-grpc-connect/backend/domain"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/gen/models"
@@ -33,7 +34,11 @@ func (ur *userRepository) Create(ctx context.Context, user *domain.User) error {
 	if err != nil {
 		return err
 	}
-	defer tx.Rollback()
+	defer func() {
+		if err := tx.Rollback(); err != nil && err != sql.ErrTxDone {
+			log.Printf("failed to rollback transaction: %v", err)
+		}
+	}()
 
 	// ユーザーを挿入
 	if err := modelUser.Insert(ctx, tx, boil.Infer()); err != nil {
