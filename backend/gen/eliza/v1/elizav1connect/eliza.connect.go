@@ -5,9 +5,9 @@
 package elizav1connect
 
 import (
-	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
+	connect_go "github.com/bufbuild/connect-go"
 	v1 "github.com/rensawamo/dart-go-grpc-connect/backend/gen/eliza/v1"
 	http "net/http"
 	strings "strings"
@@ -18,7 +18,7 @@ import (
 // generated with a version of connect newer than the one compiled into your binary. You can fix the
 // problem by either regenerating this code with an older version of connect or updating the connect
 // version compiled into your binary.
-const _ = connect.IsAtLeastVersion1_13_0
+const _ = connect_go.IsAtLeastVersion0_1_0
 
 const (
 	// ElizaServiceName is the fully-qualified name of the ElizaService service.
@@ -42,8 +42,8 @@ const (
 
 // ElizaServiceClient is a client for the eliza.v1.ElizaService service.
 type ElizaServiceClient interface {
-	Say(context.Context, *connect.Request[v1.SayRequest]) (*connect.Response[v1.SayResponse], error)
-	CreateSentence(context.Context, *connect.Request[v1.CreateSentenceRequest]) (*connect.Response[v1.CreateSentenceResponse], error)
+	Say(context.Context, *connect_go.Request[v1.SayRequest]) (*connect_go.Response[v1.SayResponse], error)
+	CreateSentence(context.Context, *connect_go.Request[v1.CreateSentenceRequest]) (*connect_go.Response[v1.CreateSentenceResponse], error)
 }
 
 // NewElizaServiceClient constructs a client for the eliza.v1.ElizaService service. By default, it
@@ -53,45 +53,42 @@ type ElizaServiceClient interface {
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
-func NewElizaServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) ElizaServiceClient {
+func NewElizaServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) ElizaServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	elizaServiceMethods := v1.File_eliza_v1_eliza_proto.Services().ByName("ElizaService").Methods()
 	return &elizaServiceClient{
-		say: connect.NewClient[v1.SayRequest, v1.SayResponse](
+		say: connect_go.NewClient[v1.SayRequest, v1.SayResponse](
 			httpClient,
 			baseURL+ElizaServiceSayProcedure,
-			connect.WithSchema(elizaServiceMethods.ByName("Say")),
-			connect.WithClientOptions(opts...),
+			opts...,
 		),
-		createSentence: connect.NewClient[v1.CreateSentenceRequest, v1.CreateSentenceResponse](
+		createSentence: connect_go.NewClient[v1.CreateSentenceRequest, v1.CreateSentenceResponse](
 			httpClient,
 			baseURL+ElizaServiceCreateSentenceProcedure,
-			connect.WithSchema(elizaServiceMethods.ByName("CreateSentence")),
-			connect.WithClientOptions(opts...),
+			opts...,
 		),
 	}
 }
 
 // elizaServiceClient implements ElizaServiceClient.
 type elizaServiceClient struct {
-	say            *connect.Client[v1.SayRequest, v1.SayResponse]
-	createSentence *connect.Client[v1.CreateSentenceRequest, v1.CreateSentenceResponse]
+	say            *connect_go.Client[v1.SayRequest, v1.SayResponse]
+	createSentence *connect_go.Client[v1.CreateSentenceRequest, v1.CreateSentenceResponse]
 }
 
 // Say calls eliza.v1.ElizaService.Say.
-func (c *elizaServiceClient) Say(ctx context.Context, req *connect.Request[v1.SayRequest]) (*connect.Response[v1.SayResponse], error) {
+func (c *elizaServiceClient) Say(ctx context.Context, req *connect_go.Request[v1.SayRequest]) (*connect_go.Response[v1.SayResponse], error) {
 	return c.say.CallUnary(ctx, req)
 }
 
 // CreateSentence calls eliza.v1.ElizaService.CreateSentence.
-func (c *elizaServiceClient) CreateSentence(ctx context.Context, req *connect.Request[v1.CreateSentenceRequest]) (*connect.Response[v1.CreateSentenceResponse], error) {
+func (c *elizaServiceClient) CreateSentence(ctx context.Context, req *connect_go.Request[v1.CreateSentenceRequest]) (*connect_go.Response[v1.CreateSentenceResponse], error) {
 	return c.createSentence.CallUnary(ctx, req)
 }
 
 // ElizaServiceHandler is an implementation of the eliza.v1.ElizaService service.
 type ElizaServiceHandler interface {
-	Say(context.Context, *connect.Request[v1.SayRequest]) (*connect.Response[v1.SayResponse], error)
-	CreateSentence(context.Context, *connect.Request[v1.CreateSentenceRequest]) (*connect.Response[v1.CreateSentenceResponse], error)
+	Say(context.Context, *connect_go.Request[v1.SayRequest]) (*connect_go.Response[v1.SayResponse], error)
+	CreateSentence(context.Context, *connect_go.Request[v1.CreateSentenceRequest]) (*connect_go.Response[v1.CreateSentenceResponse], error)
 }
 
 // NewElizaServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -99,19 +96,16 @@ type ElizaServiceHandler interface {
 //
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
-func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	elizaServiceMethods := v1.File_eliza_v1_eliza_proto.Services().ByName("ElizaService").Methods()
-	elizaServiceSayHandler := connect.NewUnaryHandler(
+func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
+	elizaServiceSayHandler := connect_go.NewUnaryHandler(
 		ElizaServiceSayProcedure,
 		svc.Say,
-		connect.WithSchema(elizaServiceMethods.ByName("Say")),
-		connect.WithHandlerOptions(opts...),
+		opts...,
 	)
-	elizaServiceCreateSentenceHandler := connect.NewUnaryHandler(
+	elizaServiceCreateSentenceHandler := connect_go.NewUnaryHandler(
 		ElizaServiceCreateSentenceProcedure,
 		svc.CreateSentence,
-		connect.WithSchema(elizaServiceMethods.ByName("CreateSentence")),
-		connect.WithHandlerOptions(opts...),
+		opts...,
 	)
 	return "/eliza.v1.ElizaService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
@@ -128,10 +122,10 @@ func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect.HandlerOpti
 // UnimplementedElizaServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedElizaServiceHandler struct{}
 
-func (UnimplementedElizaServiceHandler) Say(context.Context, *connect.Request[v1.SayRequest]) (*connect.Response[v1.SayResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("eliza.v1.ElizaService.Say is not implemented"))
+func (UnimplementedElizaServiceHandler) Say(context.Context, *connect_go.Request[v1.SayRequest]) (*connect_go.Response[v1.SayResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("eliza.v1.ElizaService.Say is not implemented"))
 }
 
-func (UnimplementedElizaServiceHandler) CreateSentence(context.Context, *connect.Request[v1.CreateSentenceRequest]) (*connect.Response[v1.CreateSentenceResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("eliza.v1.ElizaService.CreateSentence is not implemented"))
+func (UnimplementedElizaServiceHandler) CreateSentence(context.Context, *connect_go.Request[v1.CreateSentenceRequest]) (*connect_go.Response[v1.CreateSentenceResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("eliza.v1.ElizaService.CreateSentence is not implemented"))
 }

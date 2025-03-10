@@ -1,17 +1,21 @@
-version: v1
+version: v2
 managed:
   enabled: true
-
-  go_package_prefix:
-    default: github.com/rensawamo/dart-go-grpc-connect/backend/gen
-    except:
-      - buf.build/googleapis/googleapis
-      - buf.build/envoyproxy/protoc-gen-validate
+  override:
+    - file_option: go_package_prefix
+      value: github.com/rensawamo/dart-go-grpc-connect/backend/gen
+  disable:
+    - file_option: go_package_prefix
+      module: buf.build/googleapis/googleapis
+    - file_option: go_package_prefix
+      module: buf.build/envoyproxy/protoc-gen-validate
 
 plugins:
-  - name: go
+  - local: protoc-gen-go
     out: gen
     opt: paths=source_relative
-  - name: connect-go
+      
+  - remote: buf.build/bufbuild/connect-go:v1.10.0
     out: gen
-    opt: paths=source_relative
+    opt:
+      - paths=source_relative

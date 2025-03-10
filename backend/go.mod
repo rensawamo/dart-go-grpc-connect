@@ -4,6 +4,7 @@ go 1.23.3
 
 require (
 	connectrpc.com/connect v1.18.1
+	github.com/bufbuild/connect-go v1.10.0
 	github.com/friendsofgo/errors v0.9.2
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/google/uuid v1.6.0
