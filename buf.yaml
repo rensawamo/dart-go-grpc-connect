@@ -1,0 +1,17 @@
+# For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
+version: v2
+breaking:
+  use:
+    - PACKAGE
+modules:
+  - path: proto
+    lint:
+      use:
+        - DEFAULT
+      except:
+        - FIELD_NOT_REQUIRED
+        - PACKAGE_NO_IMPORT_CYCLE
+      disallow_comment_ignores: true
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/envoyproxy/protoc-gen-validate
