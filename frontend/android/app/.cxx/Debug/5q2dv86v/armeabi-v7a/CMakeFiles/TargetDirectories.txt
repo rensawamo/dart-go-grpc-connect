@@ -1,0 +1,2 @@
+/Users/rs/flutter_project/kojin/dart-go-grpc-connect/frontend/android/app/.cxx/Debug/5q2dv86v/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/rs/flutter_project/kojin/dart-go-grpc-connect/frontend/android/app/.cxx/Debug/5q2dv86v/armeabi-v7a/CMakeFiles/rebuild_cache.dir

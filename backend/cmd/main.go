@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"connectrpc.com/connect"
+	"github.com/bufbuild/connect-go"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/api/interceptor"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/di"
@@ -23,6 +23,7 @@ import (
 func main() {
 	boil.DebugMode = false
 	dsn := getEnvOrPanic("DSN")
+	fmt.Println(dsn)
 	db, err := sql.Open("mysql", dsn)
 	dieIf(err)
 	defer db.Close()

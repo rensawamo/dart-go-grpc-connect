@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"connectrpc.com/connect"
+	"github.com/bufbuild/connect-go"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/domain"
 	authv1 "github.com/rensawamo/dart-go-grpc-connect/backend/gen/auth/v1"
 )

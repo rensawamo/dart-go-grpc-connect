@@ -23,6 +23,9 @@ services:
       - --general_log_file=/var/log/mysql-general.log
       - --slow-query-log=ON
       - --slow-query-log-file=/var/log/mysql-slow-query.log
+      - --default-time-zone=Asia/Tokyo
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
     restart: always
     networks:
       - backend
