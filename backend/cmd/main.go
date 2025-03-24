@@ -6,8 +6,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
+	"github.com/bufbuild/connect-go"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/rensawamo/dart-go-grpc-connect/backend/api/interceptor"
+	"github.com/rensawamo/dart-go-grpc-connect/backend/di"
+	"github.com/rensawamo/dart-go-grpc-connect/backend/gen/auth/v1/authv1connect"
+	"github.com/rensawamo/dart-go-grpc-connect/backend/gen/eliza/v1/elizav1connect"
 	"github.com/rs/cors"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"golang.org/x/net/http2"
@@ -28,22 +34,22 @@ func main() {
 	fmt.Println("Connected to database")
 
 	// 環境変数の取得
-	// issuer := getEnvOrPanic("REPO_NAME")
-	// keyPath := getEnvOrPanic("PRIVATE_KEY_PATH")
+	issuer := getEnvOrPanic("REPO_NAME")
+	keyPath := getEnvOrPanic("PRIVATE_KEY_PATH")
 
 	// インターセプタの設定
-	// authInterceptor := connect.WithInterceptors(interceptor.NewAuthInterceptor(issuer, keyPath))
-	// timeout := 1 * time.Hour
+	authInterceptor := connect.WithInterceptors(interceptor.NewAuthInterceptor(issuer, keyPath))
+	timeout := 1 * time.Hour
 	mux := http.NewServeMux()
 
 	// DI
-	// loginHandler, err := di.InitLoginHandler(db, issuer, keyPath, timeout)
-	// elizaHandler := di.InitElizaHandler(db)
+	loginHandler, err := di.InitLoginHandler(db, issuer, keyPath, timeout)
+	elizaHandler := di.InitElizaHandler(db)
 
 	dieIf(err)
 
-	// mux.Handle(authv1connect.NewAuthServiceHandler(loginHandler))
-	// mux.Handle(elizav1connect.NewElizaServiceHandler(elizaHandler, authInterceptor))
+	mux.Handle(authv1connect.NewAuthServiceHandler(loginHandler))
+	mux.Handle(elizav1connect.NewElizaServiceHandler(elizaHandler, authInterceptor))
 
 	address := "localhost:8080"
 	fmt.Printf("Starting server at %s\n", address)

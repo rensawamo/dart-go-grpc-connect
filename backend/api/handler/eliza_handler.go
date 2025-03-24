@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"connectrpc.com/connect"
+	"github.com/bufbuild/connect-go"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/domain"
 	elizav1 "github.com/rensawamo/dart-go-grpc-connect/backend/gen/eliza/v1"
 )

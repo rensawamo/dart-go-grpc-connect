@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strings"
 
-	"connectrpc.com/connect"
+	"github.com/bufbuild/connect-go"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/internal/auth"
 	"github.com/rensawamo/dart-go-grpc-connect/backend/internal/contextkey"
 )
