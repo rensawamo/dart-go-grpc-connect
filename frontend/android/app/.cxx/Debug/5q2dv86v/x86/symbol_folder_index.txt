@@ -1,1 +1,0 @@
-/Users/rs/flutter_project/kojin/dart-go-grpc-connect/frontend/build/app/intermediates/cxx/Debug/5q2dv86v/obj/x86
