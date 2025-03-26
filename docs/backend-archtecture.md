@@ -1,102 +1,102 @@
 
-# Go バックエンドアーキテクチャ
-概要
+# Go Backend Architecture
+Overview
 
 ![Group 53](https://github.com/user-attachments/assets/213360f8-3e60-4796-b0f0-377b604a9a51)
 
-Goのバックエンド クリーンアーキテクチャのプロジェクトです。
-このプロジェクトでは、以下の技術を使用しています
+This is a backend project built with Clean Architecture principles using Go.
+It leverages the following technologies:
 
-- **Mux（HTTP ルーティング）**
-- **MySQL(データベース）**
-- **JWT 認証ミドルウェア**
+- **Mux（HTTP routing）**
+- **MySQL(database）**
+- **JWT for authentication middleware**
 - **Docker**
-  
 
-## アーキテクチャ構成
-アプリケーションは以下の層で構成されています
+## Architecture Layers
+The application is composed of the following layers:
 
 - **Router (Mux)**
-クライアントリクエストの適切なhandlerへのルーティング
+Handles routing of client requests to the appropriate handlers.
 
 - **Handler (Controller)**
-リクエストの受付とUsecaseの呼び出し
+Receives incoming requests and invokes corresponding use cases.
 
 - **Usecase**
-ビジネスロジックの実装
+Implements business logic.
 
 - **Repository**
-データベース操作の抽象化
+Abstracts database interactions.
 
 - **Domain (Model/Entity)**
-基本データ構造の定義
+Defines core data structures.
 
 - **Dependency Injection (DI)**
-依存関係の管理を行い、各レイヤーの疎結合化を実現
+Manages dependencies between layers to ensure loose coupling.
 
 
-# プロジェクト構造
+# Project Structure
 ```sh
 backend/
 ├── api/
-│   ├── handler/       # Controllerレイヤー
-│   ├── interceptor/   # gRPCインターセプター
-├── cmd/               # エントリーポイント
-├── database/          # データベース関連
-├── di/                # 依存性注入（DI）
-├── domain/            # ドメインモデル
-├── gen/               # コード生成（protobufなど）
-├── internal/          # 内部パッケージ
-├── repository/        # リポジトリ実装
-├── usecase/           # ユースケース実装
+│   ├── handler/       # Controller layer
+│   ├── interceptor/   # gRPC interceptors
+├── cmd/               # Application entry point
+├── database/          # DB setup and config
+├── di/                # Dependency injection
+├── domain/            # Domain models/entities
+├── gen/               # Generated code (e.g., Protobuf)
+├── internal/          # Internal packages
+├── repository/        # Repository implementations
+├── usecase/           # Business logic
 ```
 
-# リクエストフロー
+# Request Flow
 
-## パブリックAPI
+## Public API
 <img width="529" alt="image" src="https://github.com/user-attachments/assets/7d830f16-12e2-4338-b01b-b7ebb03aa732" />
 
 
-## 認証付きAPI
+## Authenticated API
 <img width="516" alt="image" src="https://github.com/user-attachments/assets/2ce62a77-e7a0-4457-8b92-f86be4bc761d" />
 
 
 # SET UP
-### プロジェクト用の暗号鍵を作成
+### Generate RSA Key Pair
 ```sh
 $ ssh-keygen -t rsa -b 2048 -f $PRIVATE_KEY_PATH -N ""
 $ ssh-keygen -p -m PEM -f $PRIVATE_KEY_PATH
 ```
 
-backend/.envrcの環境変数を変更する。
+Set the environment variable in backend/.envrc:
 ```sh
 PRIVATE_KEY_PATH=YOURS
 ```
 
-### backendに移動してdirenvを読み込む
+### Load direnv Environment
 ```sh
 $ cd backend && direnv allow
 ```
 
-### DockerのMySqlを立ち上げる
+### Start MySQL with Docker
 ```sh
 $ make up
 ```
 
-### マイグレーションアップ
-※ 同じくディレクトリ環境変数を読み込み
-ユーザーと、elizaが返す文章を登録しておきます。
+### Run Database Migrations
+⚠️ Make sure environment variables are loaded.
+This command registers a test user and predefined Eliza sentences.
+
 ```sh
 $ make migrate-up
 ```
 
-### テストユーザの登録
+### Sample Test User
 
 | id   | email             | password | created_at          | updated_at         |
 |------|-------------------|----------|---------------------|--------------------|
 | BLOB | test@google.com    | example  | 2025-02-12 06:46:43 | 2025-02-12 06:46:43 |
 
-### elizaの返す文章を登録
+### Pre-registered Eliza Sentences
 
 | id   | sentence |
 |------|----------|
@@ -106,48 +106,47 @@ $ make migrate-up
 | BLOB | Bonjour  |
 
 
-
-### サーバーをたちげる
+### Run the Server
 ```sh
 $ make run
 ```
 
-# APIドキュメント
+# API Documentation
 
-## **login**
+## **Login**
 
-リクエスト
+Request:
 ```sh
 $ curl --location --request POST 'http://localhost:8080/auth.v1.AuthService/Login' \
 --header "Content-Type: application/json" \
 --data '{"email": "test@google.com", "password": "example"}'
 ```
 
-レスポンス
+Response:
 ```sh
 {
   "token": "access_token"
 }
 ```
 
-## **say**
+## **Say**
 ```sh
-リクエスト
+Request:
 $ curl --location --request POST 'http://localhost:8080/eliza.v1.ElizaService/CreateSentence' \
 --header "Authorization: Bearer your_access_token" \
 --header "Content-Type: application/json" \
 --data '{"input": "Hello Eliza!"}'
 ```
 
-レスポンス
+Response:
 ```sh
 {
   "sentence": "Hi"
 }
 ```
 
-## **createSectence**
-リクエスト
+## **CreateSentence**
+Request:
 ```sh
 $ curl --location --request POST 'http://localhost:8080/eliza.v1.ElizaService/CreateSentence' \
 --header "Authorization: Bearer access_token" \
@@ -155,13 +154,13 @@ $ curl --location --request POST 'http://localhost:8080/eliza.v1.ElizaService/Cr
 --data '{"input": "add sentence"}'
 ```
 
-レスポンス
+Response:
 ```sh
 {
   "sentence": "add sentence"
 }
 ```
 
-# 参考
+# References
 - https://github.com/amitshekhariitbhu/go-backend-clean-architecture
 - https://github.com/7oh2020/connect-tasklist
