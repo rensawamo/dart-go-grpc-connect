@@ -1,56 +1,56 @@
-# このプロジェクトのアーキテクチャについて
+# Project Architecture
 - **[Backend](https://github.com/rensawamo/dart-go-grpc-connect/blob/main/docs/backend-archtecture.md)**
 - **[Frontend](https://github.com/rensawamo/dart-go-grpc-connect/blob/main/docs/frontend-archtecture.md)**
 
-# proto ディレクトリの役割
-proto ディレクトリは、**バックエンド (backend) と フロントエンド (frontend) の両方で、共通のサービス定義を提供します**。
+# Role of the proto Directory
+The proto directory provides shared service definitions for both the backend and frontend.
 
-
-これにより、クライアントとサーバーの間で同じインターフェースを使用することが保証され、開発の一貫性と保守性が向上します。
+This ensures that both client and server use the exact same interfaces, improving consistency and maintainability across the project.
 
 ```sh
 $ make gen
 ```
 
-これにより、各gen ディレクトリ内にGo/Dart 向けのコードが生成されます。
+This command generates Go and Dart code into their respective gen directories.
 
-# バックエンド(Golang)
+# Backend (Golang)
 
-### プロジェクト用の暗号鍵を作成
+### Generate a project-specific private key:
 ```sh
 $ ssh-keygen -t rsa -b 2048 -f $PRIVATE_KEY_PATH -N ""
 $ ssh-keygen -p -m PEM -f $PRIVATE_KEY_PATH
 ```
 
-backend/.envrcの環境変数を変更する。
+Update your environment variables in backend/.envrc:
 ```sh
 PRIVATE_KEY_PATH=YOURS
 ```
 
-### backendに移動してdirenvを読み込む
+### Load direnv environment variables
 ```sh
 $ cd backend && direnv allow
 ```
 
-### DockerのMySqlを立ち上げる
+### Start MySQL using Docker
 ```sh
 $ make up
 ```
 
-### マイグレーションアップ
-※ 同じくディレクトリ環境変数を読み込み
-ユーザーと、elizaが返す文章を登録しておきます。
+### Run Migrations
+⚠️ Make sure to load the environment again with direnv.
+This step creates a default user and some Eliza responses in the database.
+
 ```sh
 $ make migrate-up
 ```
 
-### テストユーザの登録
+### Sample User
 
 | id   | email             | password | created_at          | updated_at         |
 |------|-------------------|----------|---------------------|--------------------|
 | BLOB | test@google.com    | example  | 2025-02-12 06:46:43 | 2025-02-12 06:46:43 |
 
-### elizaの返す文章を登録
+### Sample Eliza Sentences
 
 | id   | sentence |
 |------|----------|
@@ -60,48 +60,43 @@ $ make migrate-up
 | BLOB | Bonjour  |
 
 
-
-### サーバーをたちげる
+### Start the Backend Server
 ```sh
 $ make run
 ```
 
-# フロントエンド(Flutter)
+# Frontend (Flutter)
 
 ```sh
 $ cd frontend && flutter run
 ```
 
-①上記のマイグレーションで登録されているユーザーでログインをして、
-アクセストークンを得ます。
-
-②アクセストークンをヘッダーにセットして、ElizaApiにリクエストを送ります。
-
-
-そうすると、際ほどマイグレーションで登録した文章のうち1つが、ランダムで返ってきます。
+### App Flow
+1. Login using the sample user to get an access token
+2. Use the token in the header to call the Eliza API
+3. The API will return one of the preset sentences randomly
 
 <div style="display: flex; gap: 20px;"> <img src="https://github.com/user-attachments/assets/646b45b7-6a83-4a5d-be67-678b88938099" width="25%" /> <img src="https://github.com/user-attachments/assets/af48e9f7-2503-4bf3-8c4b-51359faa3640" width="25%" /> </div>
 
 
-## プロジェクトルートコマンドからも実行可能
+## Run via Project Root Make Commands
 
-### ログインしてアクセストークン取得
+### Login and Get Access Token
 ```sh
 $ make login
 Getting access token...
 ACCESS_TOKEN=.....
 ```
 
-### Eliza Api実行
+### Call the Eliza API
 ```sh
 $ make say
 Making request to 'Say' endpoint...
 {"sentence":"アンニョン"}
 ```
 
-### おまけ
-Elizaから返ってくる文章が、マイグレーションしたものだけだと物足りない場合、
-以下のコマンドからバリエーションを増やせます。
+### Bonus: Add More Sentences to Eliza
+If you want Eliza to return more variety, you can add sentences like this:
 ```sh
 $ make create_sentence input="add sentence"
 Making request to 'CreateSentence' endpoint with input: add sentence
