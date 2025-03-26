@@ -1,17 +1,17 @@
 
-# Frontend ディレクトリ構造
+# Frontend Directory Structure
 
 ```sh
 frontend/
 ├── core/
-│   ├── gen/          # コード生成（Connectサービス）
-│   ├── provider/     # Riverpod Generatorを利用した依存関係の注入
-│   ├── router/       # 画面遷移の管理
-│   ├── state/        # SSOT状態管理
-│   ├── util/         # loggerなど
+│   ├── gen/          # Generated code (Connect services)
+│   ├── provider/     # Dependency injection using Riverpod Generator
+│   ├── router/       # Route and navigation management
+│   ├── state/        # SSOT (Single Source of Truth) state management
+│   ├── util/         # Utilities (e.g., logger)
 ├── feature/
-│   ├── eliza/        # Eliza機能の実装
-│   ├── login/        # 認証機能の実装
+│   ├── eliza/        # Eliza feature implementation
+│   ├── login/        # Authentication feature
 ├── app.dart         
-├── main.dart        
+├── main.dart             
 ```
